@@ -1,4 +1,8 @@
+var bannername=["营养便当","经典风味面","营养汤粥","经典蒸包-馒头","营养三明治","豆浆","美味饭团","和风寿司-手卷","烤制工坊","甜品","关东煮","呀米将","风味小食","鲜爽沙拉","咖啡","冰淇淋"];
+var bannerimg=["http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yybd-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/jdfwm-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yytz-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/zbmt-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yysmz-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/dj-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/mwft-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/hfss-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/kzgf-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/Sweet+-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/gdz-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yamijiang.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/fwxs-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/xianshishala.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/bkkf-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/bql-banner.jpg"];
+
 window.onload=function () {
+ 
   let attr=document.getElementById("user_attr");
   let head=document.getElementById("head_portrait");
   let fold=document.getElementById("fold_attr");
@@ -55,7 +59,6 @@ window.onload=function () {
     self.location.href="../html5/HomePage.html";
   }
   
-
   this.initsidebar();
   //初始化为营养便当
   this.newcategory("营养便当");
@@ -87,6 +90,7 @@ function initsidebar(){
   });
 }
 function newcategory(category){
+  this.updatebanner(category);
   $.ajax({
     type: "get",
     url: "http://47.100.107.158:80/goodtype/category?category="+category,
@@ -102,7 +106,7 @@ function newcategory(category){
         var namecell=document.createElement("span");
         namecell.innerHTML=data[i].type;
         var pricecell=document.createElement("span");
-        pricecell.innerHTML=data[i].price;
+        pricecell.innerHTML="￥"+data[i].price;
 
         cardcell.appendChild(imgcell);
         cardcell.appendChild(namecell);
@@ -115,4 +119,9 @@ function newcategory(category){
       //获取失败
     }
   });
+}
+
+function updatebanner(category){
+  $("#img_desc").html(category);
+  document.getElementById("top_img").src=bannerimg[bannername.indexOf(category)];
 }
