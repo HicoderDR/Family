@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>全家Family Mart——开心尝鲜在全家</title>
+  <link rel="stylesheet" media="screen" href="../static/css/HomePage_CSS.css">
+  <link rel="icon" href="../static/resources/网页logo.jpg" type="image/x-icon"/> <!--设置网页图标-->
+  <!-- 新 Bootstrap4 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+  <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+  <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+  <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script src="../static/JavaScript/HomePage_JS.js"></script>
+</head>
+<body>
+<div id="top">
+  <div style="background-color:#48bc54;height: 20px"></div>
+  <div style="background-color:#fff;height: 30px">
+    <img src="../static/resources/完整LOGO.png" id="logo">
+  </div>
+  <div style="background-color:#509bcd;height: 10px"></div>
+</div>
+<div id="log_in">
+  <p style="text-align: center;margin-top: 5px;font-size: 20px" id="tip">请登录</p>
+  <form id="log_in_form">          <!--表单提交-->
+    <div class="form-group">
+      <label for="user" stype="display:inline;">账户：</label>
+      <input type="text" class="form-control" id="user" style="display:inline;width:250px;" autocomplete="on" placeholder="请输入用户名/手机号/邮箱"/>
+    </div>
+    <div class="form-group">
+      <label for="password" style="display:inline;">密码：</label>
+      <input type="password" class="form-control" id="password" style="display:inline;margin-top:10px;width:250px;"autocomplete="off" placeholder="请输入密码"/>
+    </div>
+    <button type="button" class="btn btn-primary button_set" style="font-size: 20px;" onclick="login()">登录</button>
+  </form>
+  <div  id="app_download">
+    <img src="../static/resources/集享联盟APP二维码下载.png" style="width: 120px">
+    <span style="font-weight: bold;font-size: 15px;white-space: nowrap;";>下载集享联盟APP</span>
+  </div>
+</div>
+<div id="background_image">
+  <img src="../static/resources/全家首页.png" height="1000px">
+</div>
+
+</body>
+</html>

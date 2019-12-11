@@ -1,0 +1,36 @@
+.class{
+  position: relative;
+  float: left;
+  left: 0;
+  width: 20%;
+  height: 100%;
+  background-color: white;
+  border-left:solid #48bc54 20px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  padding-top: 60px;
+}
+.class:hover{
+  overflow-y: auto;
+}
+.class > .class_contain{
+  width: 100%;
+  list-style-type: none;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+.class_contain > li{
+  display: block;
+  border-bottom-right-radius: 6px;
+  border-bottom: solid #aaa 2px;
+  padding: 10px;
+  font-size: 1.25em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.class_contain > li:hover{
+  font-weight: bold;
+  padding-left: 15px;
+  border-right:solid #509bcd 15px;
+  transition-duration: 0.3s;
+}
