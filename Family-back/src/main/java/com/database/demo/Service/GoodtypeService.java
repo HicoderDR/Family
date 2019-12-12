@@ -12,6 +12,13 @@ public class GoodtypeService {
 
     @Autowired
     GoodtypeRepository goodtypeRepository;
+    public void setguarantee(String goodname,int guarantee){
+        goodtypeRepository.updateguarantee(goodname,guarantee);
+    }
+
+    public void updatesale(){
+        goodtypeRepository.updatesale();
+    }
 
     public List<Goodtype> selectall(){
         return goodtypeRepository.selectall();

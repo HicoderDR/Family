@@ -21,4 +21,14 @@ public interface GoodtypeRepository extends JpaRepository<Goodtype,Integer> {
 
     @Query(value = "select DISTINCT category from goodtype", nativeQuery = true)
     public List<String> allcategory();
+
+    @Transactional
+    @Modifying
+    @Query(value = "update goodtype set total=(SELECT count(*) from good where state='在售' and typex=good_name)", nativeQuery = true)
+    public void updatesale();
+
+    @Transactional
+    @Modifying
+    @Query(value = "update goodtype set guarantee=?2 where typex=?1", nativeQuery = true)
+    public void updateguarantee(String goodname,int guarantee);
 }

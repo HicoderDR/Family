@@ -6,6 +6,7 @@ import javax.persistence.*;
 public class Good {
 
     @Id
+
     @Column(name = "good_id")
     String goodID;
 
