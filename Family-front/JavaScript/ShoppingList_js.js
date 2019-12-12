@@ -20,6 +20,7 @@ window.onload=function () {
   }
   document.getElementById("close_btn").onclick=function () {
     $("#item_detail").removeClass("wrap_appear");
+    document.getElementById("purchase_num").value=0;
   }
   var userID=getURLParameter("userID");
   $.ajax({
@@ -90,7 +91,7 @@ function initsidebar(){
         cell.onclick=function(){
           var cate=this.innerHTML;
           parent.newcategory(cate);
-          $("li").removeClass("chosen");
+          $("#class_contain > li").removeClass("chosen");
           this.className="selector chosen";
         };
         document.getElementById("class_contain").appendChild(cell);
@@ -123,6 +124,11 @@ function newcategory(category){
             document.getElementById("item_name").innerHTML=data.type;
             document.getElementById("item_price").innerHTML="￥"+data.price;
             document.getElementById("item_desc").innerHTML=data.description;
+            document.getElementById("surplus").innerHTML=document.getElementById("purchase_num").max=data.total;
+            document.getElementById("purchase_num").oninput=function () {
+              if(this.value<0) this.value=0;
+              if(this.value>data.total) this.value=data.total;
+            }
           }
         })(data[i]);
         var imgwrap=document.createElement("div");
@@ -169,4 +175,10 @@ function sizechange(i) {
 function updatebanner(category){
   $("#img_desc").html(category);
   document.getElementById("top_img").src=bannerimg[bannername.indexOf(category)];
+}
+
+function numchange(attr) {
+  var curv=document.getElementById("purchase_num");
+  if(attr&&curv.value<parseInt(curv.max)) curv.value++; //max和value均为字符类型，在弱类型语言中进行比较易出现错误。将其中一个变量转换为int型即可。curv.value++等价于curv.value=curv.value+1，依然自动转换为int型，自减类似
+  if(!attr&&curv.value>0)                 curv.value--; //与int进行比较会自动将value转换为int型
 }
