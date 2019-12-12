@@ -22,6 +22,10 @@ window.onload=function () {
     $("#item_detail").removeClass("wrap_appear");
     document.getElementById("purchase_num").value=0;
   }
+  document.getElementById("purchase_btn").onclick=function () {
+    $("#item_detail").removeClass("wrap_appear");
+    document.getElementById("purchase_num").value=0;
+  }
   var userID=getURLParameter("userID");
   $.ajax({
     type: "get",
@@ -126,7 +130,8 @@ function newcategory(category){
             document.getElementById("item_desc").innerHTML=data.description;
             document.getElementById("surplus").innerHTML=document.getElementById("purchase_num").max=data.total;
             document.getElementById("purchase_num").oninput=function () {
-              if(this.value<0) this.value=0;
+              this.value=this.value.replace(/[^\d]/g,'');
+              if(this.value<0||this.value=="") this.value=0;
               if(this.value>data.total) this.value=data.total;
             }
           }
