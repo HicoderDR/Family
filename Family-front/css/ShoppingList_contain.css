@@ -18,6 +18,14 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+h4{
+  display: block;
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
 .commodity{
   position: relative;
   z-index: 5;
@@ -95,14 +103,70 @@
   width: 100%;
   height: 100%;
   position: fixed;
+  display: none;
   top: 0;
   left: 0;
   z-index: 15;
+  background: rgba(0, 0, 0, .6);
+}
+.wrap_appear{
+  display: flex;
+  animation-name: fadeIn; /*动画名称*/
+  animation-duration: 0.3s; /*动画持续时间*/
+  animation-iteration-count: 1; /*动画次数*/
+  animation-delay: 0s; /*延迟时间*/
+  animation-timing-function: ease-out;
+}
+/*动画效果*/
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /*初始状态 透明度为0*/
+  }
+  100% {
+    opacity: 1; /*结尾状态 透明度为1*/
+  }
 }
 .item_detail > .detail_wrap{
+  opacity: inherit;
   width: 850px;
-  height: 450px;
-
+  height: 434px;
+  background: #f7f7f7;
+  padding: 7px;
+  position: relative;
+}
+.detail_img_wrap{
+  width: 420px;
+  height: 420px;
+  background: #fff;
+  float: left;
+}
+.close_btn{
+  opacity: inherit;
+  color: #aaa;
+  font-size: 40px;
+  position: absolute;
+  top: 6px;
+  right: 11px;
+  cursor: pointer;
+}
+.detail_info{
+  width: 416px;
+  padding: 60px 65px 0 50px;
+  float: left;
+  box-sizing: border-box;
+}
+#item_price{
+  display: block;
+  color: red;
+  font-size: 18px;
+  margin: 20px 0;
+}
+#item_desc{
+  text-indent: 32px;
+  display: block;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.8;
 }
 @media (max-width: 1080px) {
   .commodity{

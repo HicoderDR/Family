@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2fe449d0-523d-456c-b9be-81a4da9ac1bb" name="默认更改列表" comment="">
-      <change beforePath="$PROJECT_DIR$/css/Import.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/Import.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/ShoppingList_contain.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/ShoppingList_contain.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html5/ShoppingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/html5/ShoppingList.html" afterDir="false" />
     </list>
@@ -16,8 +16,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1UI1h9d7IejWQgoZF8gQSJ0fBSs" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="添加" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
@@ -50,7 +53,7 @@
       <workItem from="1576056681679" duration="7394000" />
       <workItem from="1576069474296" duration="4606000" />
       <workItem from="1576074272487" duration="1202000" />
-      <workItem from="1576111061368" duration="1376000" />
+      <workItem from="1576111061368" duration="8501000" />
     </task>
     <servers />
   </component>
@@ -69,5 +72,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

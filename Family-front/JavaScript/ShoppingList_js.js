@@ -18,6 +18,9 @@ window.onload=function () {
     head.className="head_portrait";
     document.getElementById("user_name").style.display="inline";
   }
+  document.getElementById("close_btn").onclick=function () {
+    $("#item_detail").removeClass("wrap_appear");
+  }
   var userID=getURLParameter("userID");
   $.ajax({
     type: "get",
@@ -113,6 +116,15 @@ function newcategory(category){
       for(i in data){
         var cardcell=document.createElement("div");
         cardcell.className="card";
+        (function(data){
+          cardcell.onclick=function () {
+            $("#item_detail").addClass("wrap_appear");
+            $("#item_img").attr("src",data.uri);
+            document.getElementById("item_name").innerHTML=data.type;
+            document.getElementById("item_price").innerHTML="￥"+data.price;
+            document.getElementById("item_desc").innerHTML=data.description;
+          }
+        })(data[i]);
         var imgwrap=document.createElement("div");
         var imgcell=document.createElement("img");
         imgwrap.appendChild(imgcell);
