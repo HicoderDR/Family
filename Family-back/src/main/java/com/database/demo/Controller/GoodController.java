@@ -53,4 +53,14 @@ public class GoodController {
             return genFailResult(e.toString());
         }
     }
+
+    @PostMapping("/deleteall")
+    public Response deleteall(){
+        try{
+            goodService.deleteall();
+            return genSuccessResult("清空成功");
+        }catch (Exception e){
+            return genFailResult(e.toString());
+        }
+    }
 }
