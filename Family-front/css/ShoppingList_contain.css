@@ -151,7 +151,7 @@ h4{
 }
 .detail_info{
   width: 416px;
-  padding: 60px 65px 0 50px;
+  padding: 50px 65px 0 50px;
   float: left;
   box-sizing: border-box;
 }
@@ -159,14 +159,58 @@ h4{
   display: block;
   color: red;
   font-size: 18px;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 #item_desc{
+  height: 150px;
+  overflow-y: auto;
   text-indent: 32px;
   display: block;
-  color: #333;
+  color: #555;
   font-size: 16px;
   line-height: 1.8;
+}
+.purchase_wrap{
+  width: 416px;
+  height: 145px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.purchase_wrap > p{
+  color: #333;
+  margin: 5px 0;
+}
+.purchase_wrap > p > span{
+  color: #e74c3c;
+  font-weight: bold;
+}
+#purchase_num{
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  border: none;
+  font-size: 18px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.createFollowCheck input[type="number"] {
+  -moz-appearance: textfield;
+}
+.num_plus,
+.num_sub{
+  width: 40px;
+  height: 40px;
+  background-color: #e74c3c;
+  font-size: 25px;
+  color: white;
+  margin: 0;
+  cursor: pointer;
 }
 @media (max-width: 1080px) {
   .commodity{
