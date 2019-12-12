@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class WebController {
 
-    @RequestMapping(value = "/home" ,method = RequestMethod.GET)
+    @RequestMapping(value = "/" ,method = RequestMethod.GET)
     public String returnhome(ModelMap map){
         return "HomePage";
+    }
+
+    @RequestMapping(value = "/shop" ,method = RequestMethod.GET)
+    public String returnshop(ModelMap map){
+        return "ShoppingList";
     }
 }

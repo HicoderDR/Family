@@ -53,7 +53,7 @@
   transition-duration: 0.3s;
   transition-timing-function: ease-out;
 }
-img{
+.grid_box > .card > img{
   width: 170px;
   height: 180px;
 }
