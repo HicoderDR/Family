@@ -1,3 +1,23 @@
+.flex_layout_center{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.flex_layout_row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.flex_layout_column{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .commodity{
   position: relative;
   z-index: 5;
@@ -71,25 +91,18 @@
 .card:hover{
   transform: translateY(-10px);
 }
-.flex_layout_center{
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+.item_detail{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 15;
 }
-.flex_layout_row{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.flex_layout_column{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
+.item_detail > .detail_wrap{
+  width: 850px;
+  height: 450px;
+
 }
 @media (max-width: 1080px) {
   .commodity{

@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2fe449d0-523d-456c-b9be-81a4da9ac1bb" name="默认更改列表" comment="">
-      <change beforePath="$PROJECT_DIR$/JavaScript/Data_catch.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/Responsive_layout.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Product picture/营养便当.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/网页背景.psd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/网页背景.sai2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/Import.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/Import.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/ShoppingList_contain.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/ShoppingList_contain.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html5/ShoppingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/html5/ShoppingList.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,7 +50,7 @@
       <workItem from="1576056681679" duration="7394000" />
       <workItem from="1576069474296" duration="4606000" />
       <workItem from="1576074272487" duration="1202000" />
-      <workItem from="1576111061368" duration="278000" />
+      <workItem from="1576111061368" duration="1376000" />
     </task>
     <servers />
   </component>
