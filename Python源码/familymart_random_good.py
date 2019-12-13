@@ -31,11 +31,11 @@ def run3(a,b):
     time.sleep(10)
 
 def mkguarantee():
-    return random.randint(1,10)
+    return random.randint(3,30)
 
 def mkdate():
-    a=(2019,11,1,0,0,0,0,0,0)              
-    b=(2019,12,25,23,59,59,0,0,0)    
+    a=(2019,12,1,0,0,0,0,0,0)              
+    b=(2019,12,20,23,59,59,0,0,0)    
     start=time.mktime(a)    #生成开始时间戳
     end=time.mktime(b)      #生成结束时间戳
     t=random.randint(start,end)
