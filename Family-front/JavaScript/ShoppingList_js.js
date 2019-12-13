@@ -20,11 +20,15 @@ window.onload=function () {
   }
   document.getElementById("close_btn").onclick=function () {
     $("#item_detail").removeClass("wrap_appear");
-    document.getElementById("purchase_num").value=0;
+    $('#item_detail').css('display','none');
+    document.getElementById("purchase_num").value=1;
   }
   document.getElementById("purchase_btn").onclick=function () {
     $("#item_detail").removeClass("wrap_appear");
-    document.getElementById("purchase_num").value=0;
+    setTimeout("$('#item_detail').css('display','none')",500);
+    $("#detail_wrap").addClass("slide_out");
+    setTimeout("$('#detail_wrap').removeClass('slide_out')",500);
+    setTimeout("document.getElementById('purchase_num').value=1",500);
   }
   var userID=getURLParameter("userID");
   $.ajax({
@@ -123,7 +127,9 @@ function newcategory(category){
         cardcell.className="card";
         (function(data){
           cardcell.onclick=function () {
-            $("#item_detail").addClass("wrap_appear");
+            $("#item_detail").css("display","flex");
+            // $('#item_detail').addClass('wrap_appear');
+            setTimeout("$('#item_detail').addClass('wrap_appear')",0);
             $("#item_img").attr("src",data.uri);
             document.getElementById("item_name").innerHTML=data.type;
             document.getElementById("item_price").innerHTML="￥"+data.price;
@@ -131,7 +137,8 @@ function newcategory(category){
             document.getElementById("surplus").innerHTML=document.getElementById("purchase_num").max=data.total;
             document.getElementById("purchase_num").oninput=function () {
               this.value=this.value.replace(/[^\d]/g,'');
-              if(this.value<0||this.value=="") this.value=0;
+              if(this.value<0) this.value=0;
+              if(this.value=="") this.value=1;
               if(this.value>data.total) this.value=data.total;
             }
           }
