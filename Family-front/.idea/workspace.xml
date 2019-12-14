@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2fe449d0-523d-456c-b9be-81a4da9ac1bb" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/Import.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/Import.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/ShoppingList_contain.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/ShoppingList_contain.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html5/ShoppingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/html5/ShoppingList.html" afterDir="false" />
     </list>
@@ -59,6 +60,9 @@
       <workItem from="1576154637115" duration="6528000" />
       <workItem from="1576222507412" duration="228000" />
       <workItem from="1576222872980" duration="7048000" />
+      <workItem from="1576243780908" duration="4874000" />
+      <workItem from="1576287389818" duration="10762000" />
+      <workItem from="1576309416201" duration="23603000" />
     </task>
     <servers />
   </component>

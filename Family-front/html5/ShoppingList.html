@@ -23,23 +23,23 @@
     <div id="user" class="user">
       <div id="user_attr" style="display: none" class="user_attr">
         <img src="../resources/飛非魚.jpg" id="head_portrait" class="head_portrait"> <!--替换为用户头像-->
+        <div id="fold_attr" class="fold_attr slide-fade-leave" style="display: none">
+          <ul id="attr_list" class="attr_list">
+            <li>用户名：<span id="user_name_1"></span></li>
+            <li>账户：<span id="user_id"></span></li>
+            <li>会员等级：<span id="root"></span></li>
+            <li>到期时间：<span id="due_time"></span></li>
+            <li>剩余积分：<span id="points"></span></li>
+            <li>余额：<span id="balance"></span></li>
+            <li>
+              <button type="button" class="btn btn-primary" id="log_out">注销</button>
+            </li>
+          </ul>
+        </div>
       </div>
       <span id="user_name" class="user_name"></span>
       <button type="button" class="btn btn-primary button_set" id="log_in" style="display: none">登录</button>
     </div>
-  </div>
-  <div id="fold_attr" class="fold_attr slide-fade-leave" style="display: none">
-    <ul id="attr_list" class="attr_list">
-      <li>用户名：<span id="user_name_1"></span></li>
-      <li>账户：<span id="user_id"></span></li>
-      <li>会员等级：<span id="root"></span></li>
-      <li>到期时间：<span id="due_time"></span></li>
-      <li>剩余积分：<span id="points"></span></li>
-      <li>余额：<span id="balance"></span></li>
-      <li>
-        <button type="button" class="btn btn-primary" id="log_out">注销</button>
-      </li>
-    </ul>
   </div>
   <div id="class" class="class">
     <ul id="class_contain" class="class_contain">
@@ -62,6 +62,7 @@
         <div class="detail_info">
           <h4 id="item_name"></h4>
           <span id="item_price"></span>
+          <span id="discount_info"></span>
           <span id="item_desc"></span>
         </div>
         <div class="purchase_wrap">
@@ -81,6 +82,31 @@
   </div>
   <div id="shopping_cart" class="shopping_cart flex_layout_center">
     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+  </div>
+  <div id="purchase_list" class="purchase_list" style="display: none">
+    <div class="cart_close_btn flex_layout_center" id="cart_close_btn">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    <div id="shopping_list" class="shopping_list">
+    </div>
+    <div class="payment">
+      <div class="total_info flex_layout_row">
+        <span class="total_price">总计：<p id="total_price">￥0.0</p></span>
+        <span class="discount">折扣：<p id="discount">￥-0.0</p></span>
+        <span class="point_plus">获得积分：<p id="point_plus">+0</p></span>
+      </div>
+      <div class="payway">
+        <div class="flex_layout_spacebetween">
+          <span>结算：</span>
+          <span id="result_price">￥0</span>
+        </div>
+        <div class="pay_btn flex_layout_spacearound">
+          <button class="point_first">积分优先</button>
+          <button class="money">￥ 余额</button>
+          <div class="point_tip">100积分=1元</div>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
