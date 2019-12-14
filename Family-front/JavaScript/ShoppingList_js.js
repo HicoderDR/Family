@@ -245,7 +245,38 @@ function newcategory(category){
     }
   });
 }
+function purchase(op){
+  var path="http://47.100.107.158:80/user/pay";
+  if(op==0) path+="score"
+  var goodlist=[],numlist=[]
+  const data=$(".item_name_wrap")
+  const data2=$(".item_num_wrap")
+  var price=$("#result_price").html().split('￥')[1]
+  for(var i=0;i<data.length;i++){
+    goodlist.push(data[i].innerHTML)
+    numlist.push(data2[i].innerHTML.split('×')[1])
+  }
 
+  $.ajax({
+    url:path,
+    type:"post",
+    dateType:'json',
+    data:{
+      "userid":user.userid,
+      "goodlist":goodlist,
+      "numlist":numlist,
+      "money":parseFloat(price),
+      "stuffid":"wk001",
+    },
+    success:function(res){
+      alert(res.message)
+    },
+    error:function(err){
+      alert("网络连接失败,稍后重试",err);
+    }
+  })
+
+}
 function sizechange(i) {
   $(".empty").remove();
   let count=0;

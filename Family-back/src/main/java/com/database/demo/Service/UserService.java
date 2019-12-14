@@ -55,6 +55,7 @@ public class UserService {
             if((1.0*score)>=money*100)  {
                 int x= (int) money*100;
                 userRepository.payscore(userid,x);
+                return true;
             }else {
                 if (balance >= money-score*1.0/100) {
                     userRepository.payscore(userid,score);

@@ -4,10 +4,7 @@ import com.database.demo.Common.Response;
 import com.database.demo.Entity.Ord;
 import com.database.demo.Entity.Stuff;
 import com.database.demo.Entity.User;
-import com.database.demo.Service.GoodService;
-import com.database.demo.Service.OrdService;
-import com.database.demo.Service.StuffService;
-import com.database.demo.Service.UserService;
+import com.database.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +31,8 @@ public class UserController {
     GoodService goodService;
     @Autowired
     OrdService ordService;
+    @Autowired
+    GoodtypeService goodtypeService;
     @PostMapping("/login")
     public Response login(@RequestParam String username, @RequestParam String password, HttpSession session){
         try {
@@ -97,11 +96,12 @@ public class UserController {
                 Ord ord=new Ord(uuid,date,userid,money,stuffid,goodstr.toString(),numstr.toString());
                 ordService.addnew(ord);
 
+                goodtypeService.updatesale();
                 return genSuccessResult("支付成功");
             }
             else                                return genFailResult("支付失败");
         }catch(Exception e){
-            return genFailResult("支付失败");
+            return genFailResult(e.toString());
         }
     }
     @PostMapping("/payscore")
@@ -128,11 +128,12 @@ public class UserController {
                 Ord ord=new Ord(uuid,date,userid,money,stuffid,goodstr.toString(),numstr.toString());
                 ordService.addnew(ord);
 
+                goodtypeService.updatesale();
                 return genSuccessResult("支付成功");
             }
             else                                return genFailResult("支付失败");
         }catch(Exception e){
-            return genFailResult("支付失败");
+            return genFailResult(e.toString());
         }
     }
 }
