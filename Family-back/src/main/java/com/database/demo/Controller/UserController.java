@@ -1,8 +1,11 @@
 package com.database.demo.Controller;
 
 import com.database.demo.Common.Response;
+import com.database.demo.Entity.Ord;
 import com.database.demo.Entity.Stuff;
 import com.database.demo.Entity.User;
+import com.database.demo.Service.GoodService;
+import com.database.demo.Service.OrdService;
 import com.database.demo.Service.StuffService;
 import com.database.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 import static com.database.demo.Common.ResultGenerator.genFailResult;
 import static com.database.demo.Common.ResultGenerator.genSuccessResult;
@@ -23,7 +30,10 @@ public class UserController {
     UserService userService;
     @Autowired
     StuffService stuffService;
-
+    @Autowired
+    GoodService goodService;
+    @Autowired
+    OrdService ordService;
     @PostMapping("/login")
     public Response login(@RequestParam String username, @RequestParam String password, HttpSession session){
         try {
@@ -60,6 +70,69 @@ public class UserController {
             return genSuccessResult("清空成功");
         }catch(Exception e){
             return genFailResult("删除失败");
+        }
+    }
+
+    @PostMapping("/pay")
+    public Response pay(@RequestParam String userid,@RequestParam(value = "goodlist[]") String[] goodlist,@RequestParam(value = "numlist[]") int[] numlist,@RequestParam double money,@RequestParam String stuffid){
+        try{
+            if(userService.pay(userid,money))  {
+                StringBuilder goodstr= new StringBuilder();
+                StringBuilder numstr= new StringBuilder();
+                for(int i=0;i<goodlist.length;i++){
+                    String goodname=goodlist[i];
+                    int num=numlist[i];
+                    if(i!=0) goodstr.append(',');
+                    goodstr.append(goodlist[i]);
+                    if(i!=0) numstr.append(',');
+                    numstr.append(numlist[i]);
+                    goodService.sell(goodname,num);
+                }
+
+                String uuid= UUID.randomUUID().toString();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date current=new Date();
+                String date=formatter.format(current);
+
+                Ord ord=new Ord(uuid,date,userid,money,stuffid,goodstr.toString(),numstr.toString());
+                ordService.addnew(ord);
+
+                return genSuccessResult("支付成功");
+            }
+            else                                return genFailResult("支付失败");
+        }catch(Exception e){
+            return genFailResult("支付失败");
+        }
+    }
+    @PostMapping("/payscore")
+    public Response payscore(@RequestParam String userid,@RequestParam(value = "goodlist[]") String[] goodlist,@RequestParam(value = "numlist[]") int[] numlist,@RequestParam double money,@RequestParam String stuffid){
+        try{
+            if(userService.paybyscore(userid,money))  {
+                StringBuilder goodstr= new StringBuilder();
+                StringBuilder numstr= new StringBuilder();
+                for(int i=0;i<goodlist.length;i++){
+                    String goodname=goodlist[i];
+                    int num=numlist[i];
+                    if(i!=0) goodstr.append(',');
+                    goodstr.append(goodlist[i]);
+                    if(i!=0) numstr.append(',');
+                    numstr.append(numlist[i]);
+                    goodService.sell(goodname,num);
+                }
+
+                String uuid= UUID.randomUUID().toString();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date current=new Date();
+                String date=formatter.format(current);
+
+                Ord ord=new Ord(uuid,date,userid,money,stuffid,goodstr.toString(),numstr.toString());
+                ordService.addnew(ord);
+
+                return genSuccessResult("支付成功");
+            }
+            else                                return genFailResult("支付失败");
+        }catch(Exception e){
+            return genFailResult("支付失败");
         }
     }
 }

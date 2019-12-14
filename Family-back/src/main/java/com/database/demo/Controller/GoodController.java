@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static com.database.demo.Common.ResultGenerator.genFailResult;
 import static com.database.demo.Common.ResultGenerator.genSuccessResult;
@@ -44,6 +45,19 @@ public class GoodController {
         }
     }
 
+    @PostMapping("/sell")
+    public Response sell(@RequestParam(value = "goodlist[]") String[] goodlist,@RequestParam(value = "numlist[]") int[] numlist){
+        try{
+            for(int i=0;i<goodlist.length;i++){
+                String goodname=goodlist[i];
+                int num=numlist[i];
+                goodService.sell(goodname,num);
+            }
+            return genSuccessResult("修改成功");
+        }catch (Exception e){
+            return genFailResult(e.toString());
+        }
+    }
     @PostMapping("/allguarantee")
     public Response allguarantee(){
         try{

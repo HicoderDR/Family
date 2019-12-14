@@ -44,20 +44,6 @@ public class OrdController {
         }
     }
 
-    @PostMapping("/add")
-    public Response add(@RequestParam String vipid,@RequestParam double money,@RequestParam String stuffid){
-        try{
-            String uuid= UUID.randomUUID().toString();
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date current=new Date();
-            String date=formatter.format(current);
-            Ord ord=new Ord(uuid,date,vipid,money,stuffid);
-            ordService.addnew(ord);
-            return genSuccessResult(ord);
-        }catch (Exception e){
-            return genFailResult("添加失败");
-        }
-    }
 
     @PostMapping("/deleteall")
     public Response deleteall(){

@@ -45,15 +45,6 @@ def mkdate():
 def good():
     resp=requests.get("http://47.100.107.158/goodtype/all")
     data=json.loads(resp.text).get("data")
-    '''
-    wpool=[]
-    for i in range(0,len(data)-1):
-        wpool.append(threading.Thread(target=run3,args=(i,data[i].get("type"))))
-    for i in wpool:
-        i.start()
-    for i in wpool:
-        i.join()
-    '''
     for i in range(0,len(data)):
         pool=[]
         for j in range(0,random.randint(10,99)):

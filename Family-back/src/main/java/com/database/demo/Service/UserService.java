@@ -36,4 +36,33 @@ public class UserService {
     public void deleteall(){
         userRepository.deleteAll();
     }
+    public Boolean pay(String userid,double money){
+        List<User> list=userRepository.selectuserbyid(userid);
+        if(list.size()>0){
+            double balance=list.get(0).getBalance();
+            if(balance>=money) {
+                userRepository.pay(userid, money);
+                return true;
+            }
+        }
+        return false;
+    }
+    public Boolean paybyscore(String userid,double money){
+        List<User> list=userRepository.selectuserbyid(userid);
+        if(list.size()>0){
+            double balance=list.get(0).getBalance();
+            int score=list.get(0).getVipscore();
+            if((1.0*score)>=money*100)  {
+                int x= (int) money*100;
+                userRepository.payscore(userid,x);
+            }else {
+                if (balance >= money-score*1.0/100) {
+                    userRepository.payscore(userid,score);
+                    userRepository.pay(userid, money);
+                    return true;
+                }else return false;
+            }
+        }
+        return false;
+    }
 }

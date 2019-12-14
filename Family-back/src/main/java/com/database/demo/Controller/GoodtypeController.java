@@ -3,6 +3,7 @@ package com.database.demo.Controller;
 import com.database.demo.Common.Response;
 import com.database.demo.Entity.Goodtype;
 import com.database.demo.Entity.User;
+import com.database.demo.Service.GoodService;
 import com.database.demo.Service.GoodtypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,8 @@ public class GoodtypeController {
 
     @Autowired
     GoodtypeService goodtypeService;
-
+    @Autowired
+    GoodService goodService;
 
     @GetMapping("/all")
     public Response all(){
@@ -87,11 +89,30 @@ public class GoodtypeController {
             return genFailResult("清空失败");
         }
     }
+    @PostMapping("/timer")
+    public Response timer(){
+        try{
+            goodtypeService.timer();
+            return genSuccessResult("成功");
+        }catch(Exception e){
+            return genFailResult("失败");
+        }
+    }
 
     @PostMapping("/setguarantee")
     public Response setguarantee(String goodname,int guarantee){
         try{
             goodtypeService.setguarantee(goodname,guarantee);
+            return genSuccessResult("修改成功");
+        }catch(Exception e){
+            return genFailResult("修改失败");
+        }
+    }
+
+    @PostMapping("/setbuysend")
+    public Response setbuysend(String goodname,String buysend){
+        try{
+            goodtypeService.setbuysend(goodname,buysend);
             return genSuccessResult("修改成功");
         }catch(Exception e){
             return genFailResult("修改失败");
