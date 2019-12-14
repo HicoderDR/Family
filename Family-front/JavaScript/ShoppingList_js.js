@@ -1,13 +1,16 @@
 var bannername=["营养便当","经典风味面","营养汤粥","经典蒸包-馒头","营养三明治","豆浆","美味饭团","和风寿司-手卷","烤制工坊","甜品","关东煮","呀米将","风味小食","鲜爽沙拉","咖啡","冰淇淋"];
 var bannerimg=["http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yybd-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/jdfwm-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yytz-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/zbmt-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yysmz-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/dj-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/mwft-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/hfss-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/kzgf-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/Sweet+-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/gdz-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yamijiang.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/fwxs-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/xianshishala.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/bkkf-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/bql-banner.jpg"];
 
-
+var user;
 
 window.onload=function () {
 
+  let that=this;
   let attr=document.getElementById("user_attr");
   let head=document.getElementById("head_portrait");
   let fold=document.getElementById("fold_attr");
+  let cart_icon=document.getElementById("shopping_cart");
+  let list=$("#purchase_list");
   attr.onmouseenter=function () {
     fold.style.display="block";
     head.className="head_portrait enlarge";
@@ -20,11 +23,22 @@ window.onload=function () {
   }
   document.getElementById("close_btn").onclick=function () {
     $("#item_detail").removeClass("wrap_appear");
-    document.getElementById("purchase_num").value=0;
+    $('#item_detail').css('display','none');
+    document.getElementById("purchase_num").value=1;
   }
-  document.getElementById("purchase_btn").onclick=function () {
-    $("#item_detail").removeClass("wrap_appear");
-    document.getElementById("purchase_num").value=0;
+  cart_icon.onclick=function () {
+    if(list.css("display")=="none") {
+      list.css("display","block");
+      cart_icon.style.backgroundColor="#ecf0f1";
+    }
+    else {
+      list.css("display","none");
+      cart_icon.style.backgroundColor="white";
+    }
+  }
+  document.getElementById("cart_close_btn").onclick=function () {
+    list.css("display","none");
+    cart_icon.style.backgroundColor="white";
   }
   var userID=getURLParameter("userID");
   $.ajax({
@@ -35,7 +49,7 @@ window.onload=function () {
       "userID":userID,
     },
     success: function (resp) {
-      var user=resp.data;
+      user=resp.data;
       if(user==null){
         document.getElementById("user_name").innerHTML="您尚未登录，请"
         document.getElementById("log_in").style.display="block";
@@ -72,6 +86,52 @@ window.onload=function () {
   //初始化为营养便当
   this.newcategory("营养便当");
   document.getElementsByClassName("selector")[0].classList.add("chosen");
+  document.getElementById( "shopping_list" ).addEventListener( 'DOMSubtreeModified', function () {
+    let total = 0.0, discount = 0.0, addpoint = 0;
+    for ( var i in $( ".shopping_item" ) ) {
+      if ($( ".item_price_wrap" )[i].innerHTML && $( ".item_num_wrap" )[i].innerHTML) {
+        let num=parseFloat( $( ".item_num_wrap" )[i].innerHTML.split( '×' )[1] );
+        let price=parseFloat( $( ".item_price_wrap" )[i].innerHTML.split( '￥' )[1] );
+        total += num * price;
+        let discount_info = $( ".discount_info_1" )[i].innerHTML;
+        if (discount_info != "") {
+          var classify = discount_info.split( ',' );
+          if (user.viptype == 1) {
+            if (classify[0] == "a") {
+              discount+=price*parseInt(parseInt(classify[3])*num/(parseInt(classify[2])+parseInt(classify[3]))) ;
+            }
+            if (classify[0] == "b") {
+              addpoint+=parseInt(num*parseInt(classify[2]));
+            }
+            if (classify[0] == "c") {
+              discount+=parseInt(num/parseInt(classify[2]))*parseInt(classify[3]);
+            }
+          }
+          if (user.viptype == 0 && classify[1] == "0") {
+            if (classify[0] == "a") {
+              discount+=price*parseInt(parseInt(classify[3])*num/(parseInt(classify[2])+parseInt(classify[3]))) ;
+            }
+            if (classify[0] == "b") {
+              addpoint+=parseInt(num*parseInt(classify[2]));
+            }
+            if (classify[0] == "c") {
+              discount+=parseInt(num/parseInt(classify[2]))*parseInt(classify[3]);
+            }
+          }
+        }
+      }
+    }
+    discount=discount.toFixed(1);
+    total=total.toFixed(1);
+    let result=total-discount;
+    result=result.toFixed(1);
+    if(user.viptype == 0) addpoint+=parseInt(result);
+    else addpoint+=2*parseInt(result);
+    $("#total_price").html("￥"+total);
+    $("#discount").html("￥-"+discount);
+    $("#point_plus").html("+"+addpoint);
+    $("#result_price").html("￥"+result);
+  }, false);
 }
 window.onresize = function () {
   this.sizechange(document.getElementsByClassName('card').length-document.getElementsByClassName('empty').length-1);
@@ -123,16 +183,36 @@ function newcategory(category){
         cardcell.className="card";
         (function(data){
           cardcell.onclick=function () {
-            $("#item_detail").addClass("wrap_appear");
+            $("#item_detail").css("display","flex");
+            setTimeout("$('#item_detail').addClass('wrap_appear')",0);
             $("#item_img").attr("src",data.uri);
             document.getElementById("item_name").innerHTML=data.type;
             document.getElementById("item_price").innerHTML="￥"+data.price;
             document.getElementById("item_desc").innerHTML=data.description;
             document.getElementById("surplus").innerHTML=document.getElementById("purchase_num").max=data.total;
+            $("#discount_info").empty();
+            if(data.buysend!=null){
+              let discount=data.buysend.split(',');
+              if(discount[1]=="1"){
+                if(discount[0]=="a") $("#discount_info").html("尊享会员 每买"+discount[2]+"赠送"+discount[3]+"件");
+                if(discount[0]=="b") $("#discount_info").html("尊享会员 单件加赠"+discount[2]+"积分");
+                if(discount[0]=="c") $("#discount_info").html("尊享会员 每买"+discount[2]+"件减免"+discount[3]+"元");
+              }
+              if(discount[1]=="0"){
+                if(discount[0]=="a") $("#discount_info").html("普通会员 每买"+discount[2]+"赠送"+discount[3]+"件");
+                if(discount[0]=="b") $("#discount_info").html("普通会员 单件加赠"+discount[2]+"积分");
+                if(discount[0]=="c") $("#discount_info").html("普通会员 每买"+discount[2]+"件减免"+discount[3]+"元");
+              }
+            }
             document.getElementById("purchase_num").oninput=function () {
               this.value=this.value.replace(/[^\d]/g,'');
-              if(this.value<0||this.value=="") this.value=0;
+              if(this.value<0) this.value=0;
+              if(this.value=="") this.value=1;
               if(this.value>data.total) this.value=data.total;
+            }
+            document.getElementById("purchase_btn").onclick=function () {
+              animation();//执行动画
+              addchild(data.uri,data.type,data.price,document.getElementById("purchase_num").value,data.buysend);//加入购物车
             }
           }
         })(data[i]);
@@ -186,4 +266,66 @@ function numchange(attr) {
   var curv=document.getElementById("purchase_num");
   if(attr&&curv.value<parseInt(curv.max)) curv.value++; //max和value均为字符类型，在弱类型语言中进行比较易出现错误。将其中一个变量转换为int型即可。curv.value++等价于curv.value=curv.value+1，依然自动转换为int型，自减类似
   if(!attr&&curv.value>0)                 curv.value--; //与int进行比较会自动将value转换为int型
+}
+
+function animation(){
+  $("#item_detail").removeClass("wrap_appear");
+  setTimeout("$('#item_detail').css('display','none')",400);
+  $("#detail_wrap").addClass("slide_out");
+  setTimeout("$('#detail_wrap').removeClass('slide_out')",400);
+  setTimeout("document.getElementById('purchase_num').value=1",400);
+}
+function addchild(img,name,price,num,discount) {
+  let jud=1;
+  var curv=document.getElementById("purchase_num");
+  for(var i in $(".item_name_wrap")){
+    if(name==$(".item_name_wrap")[i].innerHTML){
+      if(parseInt(curv.max)<=parseInt($(".item_num_wrap")[i].innerHTML.split('×')[1])+parseInt(num)){
+        $(".item_num_wrap")[i].innerHTML="×"+curv.max;
+        document.getElementsByClassName("item_num_wrap")[i].style.color="#e74c3c";
+      }
+      else {
+        $(".item_num_wrap")[i].innerHTML="×"+(parseInt($(".item_num_wrap")[i].innerHTML.split('×')[1])+parseInt(num));
+      }
+      jud=0;
+    }
+  }
+  if(jud){
+    var purchase_item=document.createElement("div");
+    purchase_item.className="shopping_item";
+    var cancel_btn=document.createElement("div");
+    cancel_btn.className="cancel_item";
+    cancel_btn.onclick=function(){
+      $(this).parent("div").remove();
+    }
+    purchase_item.appendChild(cancel_btn);
+    var icon=document.createElement("i");
+    icon.className="fa fa-minus";
+    cancel_btn.appendChild(icon);
+    var img_wrap=document.createElement("div");
+    img_wrap.className="item_img_wrap";
+    purchase_item.appendChild(img_wrap);
+    var img_url=document.createElement("img");
+    img_url.src=img;
+    img_wrap.appendChild(img_url);
+    var name_wrap=document.createElement("div");
+    name_wrap.className="item_name_wrap";
+    name_wrap.innerHTML=name;
+    purchase_item.appendChild(name_wrap);
+    var price_wrap=document.createElement("div");
+    price_wrap.className="item_price_wrap";
+    price_wrap.innerHTML="￥"+price;
+    purchase_item.appendChild(price_wrap);
+    //记录幽灵的折扣信息
+    var discount_info=document.createElement("div");
+    discount_info.className="discount_info_1";
+    discount_info.innerHTML=discount;
+    purchase_item.appendChild(discount_info);
+    //
+    var num_wrap=document.createElement("div");
+    num_wrap.className="item_num_wrap";
+    num_wrap.innerHTML="×"+num;
+    purchase_item.appendChild(num_wrap);
+    document.getElementById("shopping_list").appendChild(purchase_item);
+  }
 }

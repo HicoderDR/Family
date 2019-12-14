@@ -18,12 +18,25 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+.flex_layout_spacebetween{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.flex_layout_spacearound{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
 h4{
   display: block;
+  white-space: nowrap;
   margin-block-start: 1.33em;
   margin-block-end: 1.33em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
   font-weight: bold;
 }
 .commodity{
@@ -35,9 +48,6 @@ h4{
   padding-top: 60px;
   overflow-y: auto;
   background: #f7f7f7;
-}
-.commodity::-webkit-scrollbar{
-  display: none;
 }
 .commodity >.top_div{
   width: 100%;
@@ -103,28 +113,18 @@ h4{
   width: 100%;
   height: 100%;
   position: fixed;
-  display: none;
   top: 0;
   left: 0;
   z-index: 15;
   background: rgba(0, 0, 0, .6);
+  opacity: 0;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in;
 }
 .wrap_appear{
-  display: flex;
-  animation-name: fadeIn; /*动画名称*/
-  animation-duration: 0.3s; /*动画持续时间*/
-  animation-iteration-count: 1; /*动画次数*/
-  animation-delay: 0s; /*延迟时间*/
-  animation-timing-function: ease-out;
-}
-/*动画效果*/
-@keyframes fadeIn {
-  0% {
-    opacity: 0; /*初始状态 透明度为0*/
-  }
-  100% {
-    opacity: 1; /*结尾状态 透明度为1*/
-  }
+  opacity: 1;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
 }
 .item_detail > .detail_wrap{
   opacity: inherit;
@@ -132,7 +132,33 @@ h4{
   height: 434px;
   background: #f7f7f7;
   padding: 7px;
-  position: relative;
+  position: absolute;
+  display: flex;
+  flex-wrap: nowrap;
+  right: 50%;
+  bottom: 50%;
+  margin-right: -425px;
+  margin-bottom: -217px;
+}
+.slide_out{
+  animation-name: slideOut; /*动画名称*/
+  animation-duration: 400ms; /*动画持续时间*/
+  animation-iteration-count: 1; /*动画次数*/
+  animation-delay: 0s; /*延迟时间*/
+  animation-timing-function: linear;
+}
+/*动画效果*/
+@keyframes slideOut {
+  0% {
+    transform: scale(1);
+    right: 50%;
+    bottom: 50%;
+  }
+  100% {
+    transform: scale(0.2);
+    right:  110px;
+    bottom: 110px;
+  }
 }
 .detail_img_wrap{
   width: 420px;
@@ -140,8 +166,13 @@ h4{
   background: #fff;
   float: left;
 }
+.detail_info_wrap{
+  width: 416px;
+  height: fit-content;
+}
 .detail_info{
   width: 416px;
+  height: 275px;
   padding: 50px 50px 0 50px;
   float: left;
   box-sizing: border-box;
@@ -151,6 +182,17 @@ h4{
   color: red;
   font-size: 18px;
   margin: 10px 0;
+}
+#discount_info{
+  position: absolute;
+  background-color: #bdc3c7;
+  padding: 0 5px;
+  border-radius: 5px;
+  right: 57px;
+  top: 95px;
+  font-size: 18px;
+  float: right;
+  color: #f5f6fa;
 }
 #item_desc{
   height: 150px;
@@ -263,20 +305,198 @@ input::-webkit-inner-spin-button {
 }
 .shopping_cart{
   position: fixed;
-  z-index: 10;
+  z-index: 16;
   bottom: 60px;
   right: 60px;
   width: 100px;
   height: 100px;
   border-radius: 50%;
   background-color: white;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,.3);
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.3);
   cursor: pointer;
 }
 .shopping_cart > i{
   margin-left: -5px;
   font-size: 60px;
   color: #bdc3c7;
+}
+.purchase_list{
+  position: fixed;
+  z-index: 16;
+  right: 60px;
+  bottom: 200px;
+  width: 412px;
+  height: 612px;
+  transition: height 2s;
+  padding: 6px;
+  background-color: #f0f0f0;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.3);
+  border-radius: 10px;
+}
+.cart_close_btn{
+  position: absolute;
+  z-index: 99;
+  top: 10px;
+  right: 10px;
+  height: 30px;
+  width:  30px;
+  border-radius: 50%;
+  background-color: rgb(189,195,199);
+  font-size: 25px;
+  color: #95a5a6;
+  cursor: pointer;
+}
+.close_btn > .fa-times{
+  margin-top: -2px;
+}
+.shopping_list{
+  width: 400px;
+  height: 450px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 20;
+}
+.shopping_list > .shopping_item{
+  display: flex;
+  position: relative;
+  flex: 12;
+  width: 390px;
+  margin: 10px 5px;
+  height: 100px;
+  background-color: white;
+  border-radius: 10px;
+}
+.shopping_list > .shopping_item:first-child{
+  margin-top: 4px;
+}
+.shopping_item > div{
+  height: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.shopping_item > .item_img_wrap{
+  flex: 3;
+}
+.shopping_item > .item_img_wrap >img{
+  width: 100px;
+}
+.shopping_item > .item_name_wrap{
+  flex: 5;
+  padding: 10px;
+  text-align: center;
+}
+.shopping_item > .item_price_wrap{
+  flex: 2;
+  color: #e74c3c;
+}
+.shopping_item > .discount_info_1{
+  display: none;
+}
+.shopping_item > .item_num_wrap{
+  flex: 2;
+}
+.shopping_item > .cancel_item{
+  height:    18px;
+  width:     18px;
+  font-size: 18px;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 20;
+  left: 5px;
+  top: 5px;
+  cursor: pointer;
+}
+.payment{
+  width: 400px;
+  height: 150px;
+}
+.total_info{
+  flex: 3;
+  height: 50px;
+}
+.total_info > span{
+  flex: 1;
+  position: relative;
+  height: inherit;
+  font-size: 18px;
+  margin: 5px;
+}
+.total_info > span > p{
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  margin: 0;
+}
+.total_info > .total_price > #total_price{
+  color: #e74c3c;
+}
+.total_info > .discount > #discount{
+  color: #e74c3c;
+}
+.total_info > .point_plus > #point_plus{
+  color: #2ecc71;
+}
+.payway{
+  height: 100px;
+}
+.payway > .flex_layout_spacebetween > span{
+  margin: 2px 8px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.payway > .flex_layout_spacebetween > #result_price{
+  color: #e74c3c;
+}
+.pay_btn{
+  height: 60px;
+  align-items: center;
+  position: relative;
+}
+.pay_btn > button{
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  padding: 5px 0;
+  transition-duration: 0.3s;
+  cursor: pointer;
+  border: none;
+}
+.pay_btn > .point_first{
+  background-color: #2ecc71;
+}
+.pay_btn > .point_first:hover{
+  background-color: #27ae60;
+}
+.pay_btn > .point_first:focus{
+  box-shadow: 0 0 0 0.2rem #27ae60;
+  outline: none;
+}
+.pay_btn > .money{
+  background-color: #e74c3c;
+}
+.pay_btn > .money:hover{
+  background-color: #c0392b;
+}
+.pay_btn > .money:focus{
+  box-shadow: 0 0 0 0.2rem #c0392b;
+  outline: none;
+}
+.point_tip{
+  position: absolute;
+  font-size: 13px;
+  left: 60px;
+  bottom: 52px;
 }
 @media (max-width: 1080px) {
   .commodity{
