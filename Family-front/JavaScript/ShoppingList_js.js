@@ -68,7 +68,7 @@ window.onload=function () {
           document.getElementById("due_time").innerHTML=user.vipdate;
         }
         document.getElementById("points").innerHTML=user.vipscore;
-        document.getElementById("balance").innerHTML=user.balance+"$";
+        document.getElementById("balance").innerHTML=user.balance.toFixed(1)+"$";
       }
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -252,6 +252,7 @@ function purchase(op){
   const data=$(".item_name_wrap")
   const data2=$(".item_num_wrap")
   var price=$("#result_price").html().split('￥')[1]
+  var score=$("#point_plus").html().split('+')[1]
   for(var i=0;i<data.length;i++){
     goodlist.push(data[i].innerHTML)
     numlist.push(data2[i].innerHTML.split('×')[1])
@@ -267,9 +268,10 @@ function purchase(op){
       "numlist":numlist,
       "money":parseFloat(price),
       "stuffid":"wk001",
+      "score":parseFloat(score)
     },
     success:function(res){
-      alert(res.message)
+      location.reload()
     },
     error:function(err){
       alert("网络连接失败,稍后重试",err);

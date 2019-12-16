@@ -41,7 +41,7 @@ public class GoodtypeController {
             return genSuccessResult(list);
         }
         catch (Exception e){
-            return genFailResult("get message fail");
+            return genFailResult(e.toString());
         }
     }
 
@@ -52,7 +52,7 @@ public class GoodtypeController {
             return genSuccessResult(list);
         }
         catch (Exception e){
-            return genFailResult("get message fail");
+            return genFailResult(e.toString());
         }
     }
     @PostMapping("/updatesale")

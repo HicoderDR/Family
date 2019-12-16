@@ -36,6 +36,10 @@ public class UserService {
     public void deleteall(){
         userRepository.deleteAll();
     }
+    public void addscore(String userid,int score){
+        userRepository.payscore(userid,-score);
+    }
+
     public Boolean pay(String userid,double money){
         List<User> list=userRepository.selectuserbyid(userid);
         if(list.size()>0){

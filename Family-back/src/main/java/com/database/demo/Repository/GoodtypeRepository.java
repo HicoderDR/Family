@@ -24,7 +24,7 @@ public interface GoodtypeRepository extends JpaRepository<Goodtype,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value ="update goodtype set total=( select cnt from(SELECT count(*) as cnt,good_name from good where state='在售' GROUP BY good_name) as a where typex=a.good_name)" , nativeQuery = true)
+    @Query(value ="update goodtype set total=IFNULL((select cnt from(SELECT count(*) as cnt,good_name from good where state='在售' GROUP BY good_name) as a where typex=a.good_name),0)" , nativeQuery = true)
     public void updatesale();
 
     @Transactional

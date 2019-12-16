@@ -18,7 +18,7 @@ public class Ord {
     @Column
     double money;
 
-    @Column(columnDefinition = "char(200) character set utf8")
+    @Column(columnDefinition = "char(1000) character set utf8")
     String goodlist;
 
     @Column

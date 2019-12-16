@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @PostMapping("/pay")
-    public Response pay(@RequestParam String userid,@RequestParam(value = "goodlist[]") String[] goodlist,@RequestParam(value = "numlist[]") int[] numlist,@RequestParam double money,@RequestParam String stuffid){
+    public Response pay(@RequestParam String userid,@RequestParam(value = "goodlist[]") String[] goodlist,@RequestParam(value = "numlist[]") int[] numlist,@RequestParam double money,@RequestParam String stuffid,@RequestParam int score){
         try{
             if(userService.pay(userid,money))  {
                 StringBuilder goodstr= new StringBuilder();
@@ -87,7 +87,7 @@ public class UserController {
                     numstr.append(numlist[i]);
                     goodService.sell(goodname,num);
                 }
-
+                userService.addscore(userid,score);
                 String uuid= UUID.randomUUID().toString();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date current=new Date();
@@ -105,7 +105,7 @@ public class UserController {
         }
     }
     @PostMapping("/payscore")
-    public Response payscore(@RequestParam String userid,@RequestParam(value = "goodlist[]") String[] goodlist,@RequestParam(value = "numlist[]") int[] numlist,@RequestParam double money,@RequestParam String stuffid){
+    public Response payscore(@RequestParam String userid,@RequestParam(value = "goodlist[]") String[] goodlist,@RequestParam(value = "numlist[]") int[] numlist,@RequestParam double money,@RequestParam String stuffid,@RequestParam int score){
         try{
             if(userService.paybyscore(userid,money))  {
                 StringBuilder goodstr= new StringBuilder();
@@ -119,7 +119,7 @@ public class UserController {
                     numstr.append(numlist[i]);
                     goodService.sell(goodname,num);
                 }
-
+                userService.addscore(userid,score);
                 String uuid= UUID.randomUUID().toString();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date current=new Date();

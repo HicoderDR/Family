@@ -28,4 +28,5 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Modifying
     @Query(value = "update userx set vip_score=vip_score-?2 where user_id=?1", nativeQuery = true)
     public void payscore(String userid,int score);
+
 }
