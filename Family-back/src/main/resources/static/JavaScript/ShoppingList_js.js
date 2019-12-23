@@ -75,7 +75,7 @@ function initsidebar(){
       var data=resp.data;
       $("class_contain").html("");  //清空
       for(var i in data){
-        var cell=document.createElement("li");
+        var cell=document.createElement("li");    
         cell.innerHTML=data[i];
         cell.onclick=function(){
           var cate=this.innerHTML;
@@ -111,7 +111,7 @@ function newcategory(category){
         cardcell.appendChild(imgcell);
         cardcell.appendChild(namecell);
         cardcell.appendChild(pricecell);
-
+        
         document.getElementById("grid_box").appendChild(cardcell);
       }
     },
