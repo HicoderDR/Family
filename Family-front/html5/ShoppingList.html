@@ -57,6 +57,7 @@
   </div>
   <div id="item_detail" class="item_detail" style="display: none">
     <div id="detail_wrap" class="detail_wrap">
+      <i class="fa fa-times" aria-hidden="true" onclick="close_wrap()"></i>
       <div class="detail_img_wrap flex_layout_center"><img src="" id="item_img" alt="图片缺失"></div>
       <div class="detail_info_wrap">
         <div class="detail_info">
@@ -65,7 +66,7 @@
           <span id="discount_info"></span>
           <span id="item_desc"></span>
         </div>
-        <div class="purchase_wrap">
+        <div id="purchase_wrap" class="purchase_wrap">
           <p>剩余数量：<span id="surplus" class="surplus"></span></p>
           <div class="flex_layout_row">
             <label for="purchase_num" class="num_sub flex_layout_center" onclick="numchange(0)"><i class="fa fa-minus" aria-hidden="true"></i></label>

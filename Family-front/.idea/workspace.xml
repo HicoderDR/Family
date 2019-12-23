@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2fe449d0-523d-456c-b9be-81a4da9ac1bb" name="默认更改列表" comment="">
+      <change beforePath="$PROJECT_DIR$/JavaScript/HomePage_JS.js" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript/HomePage_JS.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/Import.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/Import.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/ShoppingList_contain.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/ShoppingList_contain.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html5/ShoppingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/html5/ShoppingList.html" afterDir="false" />
     </list>
@@ -23,7 +23,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../人机交互/gobang-master" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
@@ -63,6 +63,10 @@
       <workItem from="1576243780908" duration="4874000" />
       <workItem from="1576287389818" duration="10762000" />
       <workItem from="1576309416201" duration="23603000" />
+      <workItem from="1576481145813" duration="388000" />
+      <workItem from="1576571374403" duration="606000" />
+      <workItem from="1576915968691" duration="787000" />
+      <workItem from="1577068132985" duration="4452000" />
     </task>
     <servers />
   </component>

@@ -54,7 +54,8 @@ window.onload=function () {
         document.getElementById("user_name").innerHTML="您尚未登录，请"
         document.getElementById("log_in").style.display="block";
       }
-      else {
+      else if(user.userid){
+        console.log(user.userid);
         document.getElementById("user_attr").style.display="block";
         document.getElementById("user_name_1").innerHTML=user.username;
         document.getElementById("user_name").innerHTML=user.username;
@@ -69,6 +70,11 @@ window.onload=function () {
         }
         document.getElementById("points").innerHTML=user.vipscore;
         document.getElementById("balance").innerHTML=user.balance.toFixed(1)+"$";
+      }
+      else if(user.stuffid){
+        document.getElementById("user_attr").style.display="none";
+        document.getElementById("user_name").innerHTML=user.name;
+        document.getElementById("shopping_cart").style.display="none";
       }
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -182,37 +188,48 @@ function newcategory(category){
         var cardcell=document.createElement("div");
         cardcell.className="card";
         (function(data){
+          //TODO:用户和员工的点击事件区分
           cardcell.onclick=function () {
-            $("#item_detail").css("display","flex");
-            setTimeout("$('#item_detail').addClass('wrap_appear')",0);
-            $("#item_img").attr("src",data.uri);
-            document.getElementById("item_name").innerHTML=data.type;
-            document.getElementById("item_price").innerHTML="￥"+data.price;
-            document.getElementById("item_desc").innerHTML=data.description;
-            document.getElementById("surplus").innerHTML=document.getElementById("purchase_num").max=data.total;
-            $("#discount_info").empty();
-            if(data.buysend!=null){
-              let discount=data.buysend.split(',');
-              if(discount[1]=="1"){
-                if(discount[0]=="a") $("#discount_info").html("尊享会员 每买"+discount[2]+"赠送"+discount[3]+"件");
-                if(discount[0]=="b") $("#discount_info").html("尊享会员 单件加赠"+discount[2]+"积分");
-                if(discount[0]=="c") $("#discount_info").html("尊享会员 每买"+discount[2]+"件减免"+discount[3]+"元");
+            if(user.userid){
+              $("#item_detail").css("display","flex");
+              setTimeout("$('#item_detail').addClass('wrap_appear')",0);
+              $("#item_img").attr("src",data.uri);
+              document.getElementById("item_name").innerHTML=data.type;
+              document.getElementById("item_price").innerHTML="￥"+data.price;
+              document.getElementById("item_desc").innerHTML=data.description;
+              document.getElementById("surplus").innerHTML=document.getElementById("purchase_num").max=data.total;
+              $("#discount_info").empty();
+              if(data.buysend!=null){
+                let discount=data.buysend.split(',');
+                if(discount[1]=="1"){
+                  if(discount[0]=="a") $("#discount_info").html("尊享会员 每买"+discount[2]+"赠送"+discount[3]+"件");
+                  if(discount[0]=="b") $("#discount_info").html("尊享会员 单件加赠"+discount[2]+"积分");
+                  if(discount[0]=="c") $("#discount_info").html("尊享会员 每买"+discount[2]+"件减免"+discount[3]+"元");
+                }
+                if(discount[1]=="0"){
+                  if(discount[0]=="a") $("#discount_info").html("普通会员 每买"+discount[2]+"赠送"+discount[3]+"件");
+                  if(discount[0]=="b") $("#discount_info").html("普通会员 单件加赠"+discount[2]+"积分");
+                  if(discount[0]=="c") $("#discount_info").html("普通会员 每买"+discount[2]+"件减免"+discount[3]+"元");
+                }
               }
-              if(discount[1]=="0"){
-                if(discount[0]=="a") $("#discount_info").html("普通会员 每买"+discount[2]+"赠送"+discount[3]+"件");
-                if(discount[0]=="b") $("#discount_info").html("普通会员 单件加赠"+discount[2]+"积分");
-                if(discount[0]=="c") $("#discount_info").html("普通会员 每买"+discount[2]+"件减免"+discount[3]+"元");
+              document.getElementById("purchase_num").oninput=function () {
+                this.value=this.value.replace(/[^\d]/g,'');
+                if(this.value<0) this.value=0;
+                if(this.value=="") this.value=1;
+                if(this.value>data.total) this.value=data.total;
+              }
+              document.getElementById("purchase_btn").onclick=function () {
+                animation();//执行动画
+                addchild(data.uri,data.type,data.price,document.getElementById("purchase_num").value,data.buysend);//加入购物车
               }
             }
-            document.getElementById("purchase_num").oninput=function () {
-              this.value=this.value.replace(/[^\d]/g,'');
-              if(this.value<0) this.value=0;
-              if(this.value=="") this.value=1;
-              if(this.value>data.total) this.value=data.total;
-            }
-            document.getElementById("purchase_btn").onclick=function () {
-              animation();//执行动画
-              addchild(data.uri,data.type,data.price,document.getElementById("purchase_num").value,data.buysend);//加入购物车
+            else if(user.stuffid){
+              $("#item_detail").css("display","flex");
+              setTimeout("$('#item_detail').addClass('wrap_appear')",0);
+              $("#item_img").attr("src",data.uri);
+              document.getElementById("item_name").innerHTML=data.type;
+              document.getElementById("purchase_wrap").style.display="none";
+              //TODO:在这里添加统计表；
             }
           }
         })(data[i]);
@@ -361,4 +378,9 @@ function addchild(img,name,price,num,discount) {
     purchase_item.appendChild(num_wrap);
     document.getElementById("shopping_list").appendChild(purchase_item);
   }
+}
+//员工关闭盒子
+function close_wrap() {
+  $("#item_detail").removeClass("wrap_appear");
+  $('#item_detail').css('display','none');
 }
