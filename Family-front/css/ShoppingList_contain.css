@@ -140,6 +140,14 @@ h4{
   margin-right: -425px;
   margin-bottom: -217px;
 }
+.item_detail >.detail_wrap > .fa{
+  position: absolute;
+  right: 10px;
+  top: 3px;
+  font-size: 50px;
+  cursor: pointer;
+  color: #bdc3c7;
+}
 .slide_out{
   animation-name: slideOut; /*动画名称*/
   animation-duration: 400ms; /*动画持续时间*/

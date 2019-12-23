@@ -37,8 +37,13 @@ function login() {
       //如果data是对象，则可以将这个对象的各属性值赋给其他变量
       //textStatus是表示状态的字符串，这里textStatus的值是"success"
       if (resp.message=="SUCCESS") {
-        var url="ShoppingList.html?"+"userID="+resp.data.userid;
-        self.location.href=url;
+        if(resp.data.userid) {
+          var url = "ShoppingList.html?" + "userID=" + resp.data.userid;
+          self.location.href = url;
+        }else{
+          var url = "ShoppingList.html?" + "userID=" + resp.data.stuffid;
+          self.location.href = url;
+        }
       }
       else {
         inner_tip.innerHTML=resp.message;
