@@ -54,9 +54,10 @@ window.onload=function () {
       if(user==null){
         document.getElementById("user_name").innerHTML="您尚未登录，请"
         document.getElementById("log_in").style.display="block";
+        console.log(user);
       }
       else if(user.userid){
-        console.log(user.userid);
+        document.getElementById("shopping_cart").style.display="flex";
         document.getElementById("user_attr").style.display="block";
         document.getElementById("user_name_1").innerHTML=user.username;
         document.getElementById("user_name").innerHTML=user.username;
@@ -73,9 +74,9 @@ window.onload=function () {
         document.getElementById("balance").innerHTML=user.balance.toFixed(1)+"$";
       }
       else if(user.stuffid){
+        document.getElementById("log_out").style.display="inline-block";
         document.getElementById("user_attr").style.display="none";
         document.getElementById("user_name").innerHTML=user.name;
-        document.getElementById("shopping_cart").style.display="none";
       }
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -83,12 +84,12 @@ window.onload=function () {
       document.getElementById("user_name").style.color="#e74c3c";
     }
   });
-  document.getElementById("log_out").onclick=function () {
+/*  document.getElementById("log_out").onclick=function () {
     self.location.href="../html5/HomePage.html";
   }
   document.getElementById("log_in").onclick=function () {
     self.location.href="../html5/HomePage.html";
-  }
+  }*/
   this.initsidebar();
   //初始化为营养便当
   this.newcategory("营养便当");
@@ -227,9 +228,9 @@ function newcategory(category){
             else if(user.stuffid){
               $("#item_detail").css("display","flex");
               setTimeout("$('#item_detail').addClass('wrap_appear')",0);
-              $("#item_img").attr("src",data.uri);
-              document.getElementById("item_name").innerHTML=data.type;
-              document.getElementById("purchase_wrap").style.display="none";
+              document.getElementById("detail_wrap").style.display="none";
+              document.getElementById("statistics_wrap").style.display="block";
+              document.getElementById("statistics_name").innerHTML=data.type;
               //TODO:在这里添加统计表；
             }
           }
@@ -384,4 +385,7 @@ function addchild(img,name,price,num,discount) {
 function close_wrap() {
   $("#item_detail").removeClass("wrap_appear");
   $('#item_detail').css('display','none');
+}
+function href_HomePage() {
+  self.location.href="../html5/HomePage.html";
 }

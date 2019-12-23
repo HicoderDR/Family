@@ -140,14 +140,6 @@ h4{
   margin-right: -425px;
   margin-bottom: -217px;
 }
-.item_detail >.detail_wrap > .fa{
-  position: absolute;
-  right: 10px;
-  top: 3px;
-  font-size: 50px;
-  cursor: pointer;
-  color: #bdc3c7;
-}
 .slide_out{
   animation-name: slideOut; /*动画名称*/
   animation-duration: 400ms; /*动画持续时间*/
@@ -310,6 +302,28 @@ input::-webkit-inner-spin-button {
 }
 .confirm_wrap > .confirm:focus{
   box-shadow: 0 0 0 0.2rem rgb(231,76,60);
+}
+.statistics_wrap{
+  width: 850px;
+  height: 434px;
+  padding: 7px;
+  position: absolute;
+  right: 50%;
+  bottom: 50%;
+  margin-right: -425px;
+  margin-bottom: -217px;
+  background-color: white;
+}
+.statistics_wrap > .fa{
+  position: absolute;
+  right: 10px;
+  top: 3px;
+  font-size: 50px;
+  cursor: pointer;
+  color: #bdc3c7;
+}
+.statistics_wrap > .statistics_name{
+  margin: 25px 0 0 30px;
 }
 .shopping_cart{
   position: fixed;
