@@ -16,6 +16,9 @@
   <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script src="../JavaScript/ShoppingList_js.js"></script>
   <style type="text/css"></style>
+  <script src="https://www.jq22.com/jquery/echarts-4.2.1.min.js"></script>
+  <script src="https://cdn.bootcss.com/echarts/4.4.0-rc.1/echarts.common.min.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <div id="top" class="top">
@@ -83,6 +86,9 @@
     <div id="statistics_wrap" class="statistics_wrap" style="display: none">
       <i class="fa fa-times" aria-hidden="true" onclick="close_wrap()"></i>
       <h4 id="statistics_name" class="statistics_name"></h4>
+
+      <div id="chart" style="width:800px;height: 250px;left: 5%;"></div>
+
     </div>
   </div>
   <div id="shopping_cart" class="shopping_cart flex_layout_center" style="display: none">

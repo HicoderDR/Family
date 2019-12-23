@@ -26,7 +26,7 @@ function login() {
     //如果async是ture,对于FireFox浏览器，会刷新掉alert()弹出框的内容
     //对于Chrome浏览器，第一次注册时会执行error的回调函数，输出“请求在连接过程中出现错误..”
     async:false,
-    data: {  //要传入ashx文件的数据
+    data: { 
       "username": user,
       "password": password
     },
@@ -37,8 +37,13 @@ function login() {
       //如果data是对象，则可以将这个对象的各属性值赋给其他变量
       //textStatus是表示状态的字符串，这里textStatus的值是"success"
       if (resp.message=="SUCCESS") {
-        var url="shop?"+"userID="+resp.data.userid;
-        self.location.href=url;
+        if(resp.data.userid) {
+          var url = "shop?" + "userID=" + resp.data.userid;
+          self.location.href = url;
+        }else{
+          var url = "shop?" + "userID=" + resp.data.stuffid;
+          self.location.href = url;
+        }
       }
       else {
         inner_tip.innerHTML=resp.message;

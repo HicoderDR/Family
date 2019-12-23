@@ -1,17 +1,14 @@
 .class{
   position: relative;
+  z-index: 10;
   float: left;
   left: 0;
   width: 20%;
   height: 100%;
   background-color: white;
   border-left:solid #48bc54 20px;
-  overflow-y: hidden;
-  overflow-x: hidden;
   padding-top: 60px;
-}
-.class:hover{
-  overflow-y: auto;
+  box-shadow: 2px 0px 5px 0px rgba(0,0,0,0.3);
 }
 .class > .class_contain{
   width: 100%;
@@ -19,7 +16,7 @@
   padding-inline-start: 0;
   padding-inline-end: 0;
 }
-.class_contain > li{
+.class_contain > .selector{
   display: block;
   border-bottom-right-radius: 6px;
   border-bottom: solid #aaa 2px;
@@ -28,9 +25,14 @@
   cursor: pointer;
   white-space: nowrap;
 }
-.class_contain > li:hover{
+.selector:hover{
   font-weight: bold;
   padding-left: 15px;
   border-right:solid #509bcd 15px;
   transition-duration: 0.3s;
+}
+.class_contain >  .chosen{
+  font-weight: bold;
+  padding-left: 15px;
+  border-right:solid #509bcd 15px;
 }

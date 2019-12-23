@@ -1,6 +1,7 @@
 var bannername=["营养便当","经典风味面","营养汤粥","经典蒸包-馒头","营养三明治","豆浆","美味饭团","和风寿司-手卷","烤制工坊","甜品","关东煮","呀米将","风味小食","鲜爽沙拉","咖啡","冰淇淋"];
 var bannerimg=["http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yybd-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/jdfwm-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yytz-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/zbmt-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yysmz-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/dj-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/mwft-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/hfss-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/kzgf-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/Sweet+-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/gdz-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/yamijiang.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/fwxs-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/xianshishala.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/bkkf-banner.jpg","http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/bql-banner.jpg"];
-
+var dataMouth = [];//x轴
+var data1 = [];
 var user;
 
 window.onload=function () {
@@ -41,7 +42,6 @@ window.onload=function () {
     cart_icon.style.backgroundColor="white";
   }
   var userID=getURLParameter("userID");
-  alert(userID)
   $.ajax({
     type: "get",
     url: "http://47.100.107.158:80/user/getone",
@@ -232,6 +232,41 @@ function newcategory(category){
               document.getElementById("statistics_wrap").style.display="block";
               document.getElementById("statistics_name").innerHTML=data.type;
               //TODO:在这里添加统计表；
+              $.ajax({
+                type: "get",
+                url: "http://47.100.107.158:80/ord/statistic",
+                async:false,
+                data: {
+                  "goodname":data.type,
+                },
+                success: function (resp) {
+                  var list=resp.data;
+                  var nowday=new Date();
+                  dataMouth=[];
+                  for(var i=0;i<12;i++){
+                    var item=(nowday.getMonth()>9)?(nowday.getMonth()+1)+"-"+nowday.getDate():"0"+(nowday.getMonth()+1)+"-"+nowday.getDate();
+                    dataMouth.push(item);
+                    nowday=nowday.setDate(nowday.getDate()-1);
+                    nowday=new Date(nowday);
+                  }
+                  dataMouth.reverse();
+                  data1=[0,0,0,0,0,0,0,0,0,0,0,0];
+                  for(var j in list){
+                    var date=list[j].saledate.substring(5,10);
+                    console.log(date)
+                    for(var k in dataMouth){
+                      if(date==dataMouth[k]){
+                        data1[k]=list[j].num;
+                      }
+                    }
+                  }
+                  console.log(data1)
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                  console.log("获取数据失败");
+                }
+              });
+              chart();
             }
           }
         })(data[i]);
@@ -389,3 +424,104 @@ function close_wrap() {
 function href_HomePage() {
   self.location.href="../html5/HomePage.html";
 }
+function chart(){
+  var chart_c1 = echarts.init(document.getElementById('chart'));//指定的id要有高度和宽度
+  var dataMoney = [0,5,10,15,20,25,30,35,40,45,50,55];//y轴
+
+  //显示数据，可修改
+  option = {
+      title: {
+          // text: '费用统计',
+          left: 'left',
+          top: 'top',
+      },
+      tooltip : {
+          trigger: 'axis',
+          axisPointer : {
+              type : 'shadow'
+          },
+          formatter:function (params){
+
+              var relVal = params[0].name+"<br/>";
+              relVal += params[0].seriesName+ ' : ' + params[0].value+"例子"+"<br/>";
+              relVal +=params[1].seriesName+ ' : ' +params[1].value+"<br/>";
+              // relVal += params[2].seriesName+ ' : ' + params[2].value+"%";
+              return relVal;
+          }
+      },
+      legend: {
+          // orient: 'vertical',
+          // x: 'center',
+          // y: 'top',
+          selectedMode:false, 
+          itemWidth:15,  
+          itemHeight:15, 
+          icon: 'circle',
+          data:['销售量','销售量']
+      },
+      grid: {
+          left: '1%',
+          right: '15%',
+          bottom: '3%',
+          containLabel: true
+      },
+      xAxis : [
+          {
+              type : 'category',
+              axisLine:{
+                  symbol:['none','arrow'],
+                  lineStyle:{
+                      color:'#9b9b9b',
+                  }    
+              },
+              name: '日期',
+              data : dataMouth,
+              splitLine:{
+                  show:false,
+              },
+          }
+      ],
+      yAxis : [
+          {
+              type : 'value',
+              axisLine:{
+                  symbol:['none','arrow'],
+                  lineStyle:{
+                      color:'#9b9b9b',
+                  }  
+              },
+              name: '金额（元）',
+              data : dataMoney,//可省略，只要type : 'value',会自适应数据设置Y轴
+              splitLine:{
+                  show:false,
+              },
+          }
+      ],
+      series : [
+          {
+              name:'销售量',
+              type:'bar',
+              stack:'sum',  //柱状图叠在一起的关键设置
+              // barWidth : 20,
+              itemStyle:{
+                  normal:{
+                      label: {
+                          show: false,//是否展示
+                      },
+                      color:'#2a6afd',
+                  }
+              },
+              data:data1
+          },
+
+          ]
+      };
+  chart_c1.setOption(option);
+}
+
+function convertDateFromString(dateString) {
+  if (dateString) { 
+  var date = new Date(dateString.replace(/-/,"/")) 
+  return date;
+  }
+  }

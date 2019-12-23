@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>全家Family Mart——开心尝鲜在全家</title>
-  <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css"> <!--字体图标-->
+  <link rel="stylesheet" href="../static/font-awesome-4.7.0/css/font-awesome.min.css"> <!--字体图标-->
   <link rel="icon" href="../static/resources/网页logo.jpg" type="image/x-icon"/>
   <link rel="stylesheet" href="../static/css/Import.css">
   <!-- 新 Bootstrap4 核心 CSS 文件 -->
@@ -15,6 +15,10 @@
   <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
   <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script src="../static/JavaScript/ShoppingList_js.js"></script>
+  <style type="text/css"></style>
+  <script src="https://www.jq22.com/jquery/echarts-4.2.1.min.js"></script>
+  <script src="https://cdn.bootcss.com/echarts/4.4.0-rc.1/echarts.common.min.js"></script>
+  <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
   <div id="top" class="top">
@@ -31,28 +35,89 @@
             <li>剩余积分：<span id="points"></span></li>
             <li>余额：<span id="balance"></span></li>
             <li>
-              <button type="button" class="btn btn-primary" id="log_out">注销</button>
+              <button type="button" class="btn btn-primary" onclick="href_HomePage()">注销</button>
             </li>
           </ul>
         </div>
       </div>
       <span id="user_name" class="user_name"></span>
-      <button type="button" class="btn btn-primary button_set" id="log_in" style="display: none">登录</button>
+      <button type="button" class="btn btn-primary button_set" id="log_in" onclick="href_HomePage()" style="display: none">登录</button>
+      <button type="button" id="log_out" class="btn btn-primary" onclick="href_HomePage()" style="display: none">注销</button>
     </div>
   </div>
-    <div id="class" class="class">
-      <ul id="class_contain" class="class_contain">
-      </ul>
+  <div id="class" class="class">
+    <ul id="class_contain" class="class_contain">
+    </ul>
+  </div>
+  <div id="commodity" class="commodity">
+    <div id="top_div" class="top_div flex_layout_center">
+      <img id="top_img" class="top_img">
+      <span id="img_desc" class="img_desc"></span>
     </div>
-    <div id="commodity" class="commodity" >
-      <div id="top_div" class="top_div">
-        <img src="../static/resources/Product%20picture/营养便当.jpg" id="top_img" class="top_img">
-        <span id="img_desc" class="img_desc">营养便当</span>
+    <div id="commodity_contain" class="commodity_contain">
+      <div id="grid_box" class="grid_box flex_layout_row">
       </div>
-      <div id="commodity_contain" class="commodity_contain">
-        <div id="grid_box" class="grid_box">   
+    </div>
+  </div>
+  <div id="item_detail" class="item_detail" style="display: none">
+    <div id="detail_wrap" class="detail_wrap">
+      <div class="detail_img_wrap"><img src="" id="item_img" alt="图片缺失"></div>
+      <div class="detail_info_wrap">
+        <div class="detail_info">
+          <h4 id="item_name"></h4>
+          <span id="item_price"></span>
+          <span id="discount_info"></span>
+          <span id="item_desc"></span>
+        </div>
+        <div id="purchase_wrap" class="purchase_wrap">
+          <p>剩余数量：<span id="surplus" class="surplus"></span></p>
+          <div class="flex_layout_row">
+            <label for="purchase_num" class="num_sub flex_layout_center" onclick="numchange(0)"><i class="fa fa-minus" aria-hidden="true"></i></label>
+            <input type="number" id="purchase_num" value="1">
+            <label for="purchase_num" class="num_plus flex_layout_center" onclick="numchange(1)"><i class="fa fa-plus" aria-hidden="true"></i></label>
+          </div>
+          <div class="confirm_wrap">
+            <button id="close_btn" class="cancel"><i class="fa fa-times" aria-hidden="true"></i> 取消</button>
+            <button id="purchase_btn" class="confirm"><i class="fa fa-shopping-cart" aria-hidden="true"></i> 购买</button>
+          </div>
         </div>
       </div>
     </div>
+    <div id="statistics_wrap" class="statistics_wrap" style="display: none">
+      <i class="fa fa-times" aria-hidden="true" onclick="close_wrap()"></i>
+      <h4 id="statistics_name" class="statistics_name"></h4>
+
+      <div id="chart" style="width:800px;height: 250px;left: 5%;"></div>
+
+    </div>
+  </div>
+  <div id="shopping_cart" class="shopping_cart flex_layout_center" style="display: none">
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+  </div>
+  <div id="purchase_list" class="purchase_list" style="display: none">
+    <div class="cart_close_btn flex_layout_center" id="cart_close_btn">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
+    <div id="shopping_list" class="shopping_list">
+    </div>
+    <div class="payment">
+      <div class="total_info flex_layout_row">
+        <span class="total_price">总计：<p id="total_price">￥0.0</p></span>
+        <span class="discount">折扣：<p id="discount">￥-0.0</p></span>
+        <span class="point_plus">获得积分：<p id="point_plus">+0</p></span>
+      </div>
+      <div class="payway">
+        <div class="flex_layout_spacebetween">
+          <span>结算：</span>
+          <span id="result_price">￥0</span>
+        </div>
+        <div class="pay_btn flex_layout_spacearound">
+          <button class="point_first" onclick="purchase(0)">积分优先</button>
+          <button class="money" onclick="purchase(1)">￥ 余额</button>
+          <div class="point_tip">100积分=1元</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

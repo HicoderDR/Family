@@ -1,6 +1,6 @@
+@import "style.css";
 @import "ShoppingList_left.css";
 @import "ShoppingList_contain.css";
-@import "Responsive_layout.css";
 html , body{
   height: 100%;
 }
@@ -17,7 +17,7 @@ body{
   border-bottom: solid #509bcd 5px;
   box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.1);
   position: fixed;
-  z-index: 10;
+  z-index: 50;
 }
 .logo{
   position: absolute;
@@ -36,12 +36,12 @@ body{
 }
 .user > .user_attr > .head_portrait{
   position: absolute;
-  z-index: 99;
   width: 42px;
   border-radius: 21px;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,1);
   transform-origin: center top;
   transition-duration: 0.3s;
+  z-index: 99;
 }
 .user > .user_attr > .enlarge{
   transform: scale(2);
@@ -54,16 +54,14 @@ body{
   font-size: 18px;
 }
 .fold_attr{
-  top: 54px;
-  position: absolute;
-  margin-left: -119px;
-  z-index: 20;
+  top: 55px;
+  position: fixed;
+  right: 39px;
   width: 280px;
   height: 375px;
   background-color: white;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  box-shadow: 0px 5px 3px 0px rgba(0,0,0,.5);
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px 0px rgba(0,0,0,.5);
 }
 .attr_list{
   width: inherit;
@@ -80,15 +78,22 @@ body{
   margin: 0;
   border-bottom: solid #ccc 1px;
   font-size: 17px;
+  color: #666;
 }
 .attr_list > li >span{
   float: right;
+  color: #000;
 }
 .attr_list > li:last-child{
   border-bottom: none;
   text-align: center;
 }
-#log_out {
+#balance{
+  color: #e74c3c;
+  font-weight: bold;
+}
+li > .btn-primary,
+.user > .btn-primary {
   background-color: #e74c3c;
   border-color: #e74c3c;
   font-size: 18px;
@@ -104,6 +109,9 @@ body{
 @media (max-width: 1080px) {
   .user {
     margin-right: 161px;
+  }
+  .fold_attr{
+    right: 0;
   }
 }
 
