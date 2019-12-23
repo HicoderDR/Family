@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2fe449d0-523d-456c-b9be-81a4da9ac1bb" name="默认更改列表" comment="">
-      <change beforePath="$PROJECT_DIR$/JavaScript/HomePage_JS.js" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript/HomePage_JS.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html5/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html5/jquery插件库.url" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html5/js/chart1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html5/js/chart2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html5/js/chart3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/html5/www.jq22.com.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/Import.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/Import.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/ShoppingList_contain.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/ShoppingList_contain.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html5/ShoppingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/html5/ShoppingList.html" afterDir="false" />
     </list>
@@ -25,6 +32,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../人机交互/gobang-master" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Files\作业\数据库\Family\Family-front\css" />
+      <recent name="F:\Files\作业\数据库\Family\Family-front\html5" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -67,6 +80,8 @@
       <workItem from="1576571374403" duration="606000" />
       <workItem from="1576915968691" duration="787000" />
       <workItem from="1577068132985" duration="4452000" />
+      <workItem from="1577103628124" duration="4977000" />
+      <workItem from="1577109982877" duration="1096000" />
     </task>
     <servers />
   </component>
