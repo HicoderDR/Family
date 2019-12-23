@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static com.database.demo.Common.ResultGenerator.genFailResult;
@@ -58,9 +59,9 @@ public class UserController {
     public Response getone(@RequestParam String userID){
         try{
             User x=userService.selectbyid(userID);
-            Stuff y=stuffRepository.selectbyid(userID).get(0);
+            List<Stuff> y=stuffRepository.selectbyid(userID);
             if(x!=null) return genSuccessResult(x);
-            if(y!=null) return genSuccessResult(y);
+            if(!y.isEmpty()) return genSuccessResult(y.get(0));
             else return genFailResult("获取失败");
         }catch (Exception e){
             return genFailResult("服务器未响应");

@@ -62,6 +62,7 @@ public class GoodtypeService {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String nowstr=formatter.format(now);
                 goodRepository.allguarantee(nowstr);
+                goodRepository.allback();
                 goodtypeRepository.updatesale();
             }
         };

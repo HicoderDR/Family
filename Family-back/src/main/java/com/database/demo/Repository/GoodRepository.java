@@ -19,6 +19,10 @@ public interface GoodRepository extends JpaRepository<Good,Integer> {
     @Query(value = "update good set state='过期' where enddate<?1", nativeQuery = true)
     public void allguarantee(String now);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update good set state='在售' where state='售出'", nativeQuery = true)
+    public void allback();
 
     @Query(value = "select guarantee from goodtype where typex=?1", nativeQuery = true)
     public int getguarantee(String goodname);
