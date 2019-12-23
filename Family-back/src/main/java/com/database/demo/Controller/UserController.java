@@ -4,6 +4,7 @@ import com.database.demo.Common.Response;
 import com.database.demo.Entity.Ord;
 import com.database.demo.Entity.Stuff;
 import com.database.demo.Entity.User;
+import com.database.demo.Repository.StuffRepository;
 import com.database.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,8 @@ public class UserController {
     OrdService ordService;
     @Autowired
     GoodtypeService goodtypeService;
+    @Autowired
+    StuffRepository stuffRepository;
     @PostMapping("/login")
     public Response login(@RequestParam String username, @RequestParam String password, HttpSession session){
         try {
@@ -55,13 +58,15 @@ public class UserController {
     public Response getone(@RequestParam String userID){
         try{
             User x=userService.selectbyid(userID);
+            Stuff y=stuffRepository.selectbyid(userID).get(0);
             if(x!=null) return genSuccessResult(x);
+            if(y!=null) return genSuccessResult(y);
             else return genFailResult("获取失败");
         }catch (Exception e){
             return genFailResult("服务器未响应");
         }
     }
-
+    //
     @PostMapping("/deleteall")
     public Response deleteall(){
         try{

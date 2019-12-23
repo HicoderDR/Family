@@ -41,6 +41,7 @@ window.onload=function () {
     cart_icon.style.backgroundColor="white";
   }
   var userID=getURLParameter("userID");
+  alert(userID)
   $.ajax({
     type: "get",
     url: "http://47.100.107.158:80/user/getone",

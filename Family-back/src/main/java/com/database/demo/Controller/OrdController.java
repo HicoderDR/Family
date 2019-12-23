@@ -3,6 +3,7 @@ package com.database.demo.Controller;
 
 import com.database.demo.Common.Response;
 import com.database.demo.Entity.Ord;
+import com.database.demo.Entity.Sale;
 import com.database.demo.Entity.User;
 import com.database.demo.Service.OrdService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,24 @@ public class OrdController {
             return genFailResult("获取失败");
         }
     }
-
-
+    @GetMapping("/statistic")
+    public Response statistic(String goodname){
+        try{
+            List<Sale> list=ordService.statistic(goodname);
+            return genSuccessResult(list);
+        }catch (Exception e){
+            return genFailResult("获取失败");
+        }
+    }
+    @PostMapping("/init")
+    public Response init(){
+        try{
+            ordService.initsale();
+            return genSuccessResult("清空成功");
+        }catch(Exception e){
+            return genFailResult(e.toString());
+        }
+    }
     @PostMapping("/deleteall")
     public Response deleteall(){
         try{
