@@ -1,4 +1,9 @@
 var  option = {
+    title: {
+        text: '近12天销售量',
+        left: 'left',
+        top: 'top',
+    },
     tooltip: {
         trigger: 'axis'
     },
@@ -15,7 +20,7 @@ var  option = {
                 symbol:['none','arrow'],
                 lineStyle:{
                     color:'#9b9b9b',
-                }  
+                }
             },
             name: '月份',
             data: ['1','2','3','4','5','6','7','8','9','10','11','12'],
@@ -31,7 +36,7 @@ var  option = {
                 symbol:['none','arrow'],
                 lineStyle:{
                     color:'#9b9b9b',
-                }  
+                }
             },
             name: '用户数/人',
             min: 0,
@@ -46,7 +51,7 @@ var  option = {
         }
     ],
     series: [
-         
+
         {
             name:'用户统计',
             type:'bar',
@@ -72,7 +77,7 @@ var  option = {
                     )
                 }
             },*/
-            
+
             /*设置柱状图颜色*/
             itemStyle: {
                 normal: {
@@ -108,4 +113,4 @@ var  option = {
 // 基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('chart3'));
 // 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option); 
+myChart.setOption(option);
