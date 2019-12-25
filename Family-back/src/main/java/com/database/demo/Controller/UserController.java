@@ -2,8 +2,10 @@ package com.database.demo.Controller;
 
 import com.database.demo.Common.Response;
 import com.database.demo.Entity.Ord;
+import com.database.demo.Entity.Sale;
 import com.database.demo.Entity.Stuff;
 import com.database.demo.Entity.User;
+import com.database.demo.Repository.SaleRepository;
 import com.database.demo.Repository.StuffRepository;
 import com.database.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,8 @@ public class UserController {
     GoodtypeService goodtypeService;
     @Autowired
     StuffRepository stuffRepository;
+    @Autowired
+    SaleRepository saleRepository;
     @PostMapping("/login")
     public Response login(@RequestParam String username, @RequestParam String password, HttpSession session){
         try {
@@ -116,6 +120,9 @@ public class UserController {
             if(userService.paybyscore(userid,money))  {
                 StringBuilder goodstr= new StringBuilder();
                 StringBuilder numstr= new StringBuilder();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date current=new Date();
+                String date=formatter.format(current);
                 for(int i=0;i<goodlist.length;i++){
                     String goodname=goodlist[i];
                     int num=numlist[i];
@@ -124,13 +131,51 @@ public class UserController {
                     if(i!=0) numstr.append(',');
                     numstr.append(numlist[i]);
                     goodService.sell(goodname,num);
+                    Sale sale=new Sale();
+                    sale.setGoodname(goodname);
+                    sale.setNum(num);
+                    sale.setSaledate(date);
+                    saleRepository.save(sale);
                 }
                 userService.addscore(userid,score);
                 String uuid= UUID.randomUUID().toString();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date current=new Date();
-                String date=formatter.format(current);
 
+                Ord ord=new Ord(uuid,date,userid,money,stuffid,goodstr.toString(),numstr.toString());
+                ordService.addnew(ord);
+
+                goodtypeService.updatesale();
+                return genSuccessResult("支付成功");
+            }
+            else                                return genFailResult("支付失败");
+        }catch(Exception e){
+            return genFailResult(e.toString());
+        }
+    }
+    @PostMapping("/paydev")
+    @ResponseBody
+    public Response paydev(@RequestParam String userid,@RequestParam String goodlist,@RequestParam String numlist,@RequestParam double money,@RequestParam String stuffid,@RequestParam int score,@RequestParam String date){
+        try{
+            if(userService.pay(userid,money))  {
+                StringBuilder goodstr= new StringBuilder();
+                StringBuilder numstr= new StringBuilder();
+                String[] glist=goodlist.split(",");
+                String[] nlist=numlist.split(",");
+                for(int i=0;i<glist.length;i++){
+                    String goodname=glist[i];
+                    int num=Integer.parseInt(nlist[i]);
+                    if(i!=0) goodstr.append(',');
+                    goodstr.append(glist[i]);
+                    if(i!=0) numstr.append(',');
+                    numstr.append(nlist[i]);
+                    goodService.sell(goodname,num);
+                    Sale sale=new Sale();
+                    sale.setGoodname(goodname);
+                    sale.setNum(num);
+                    sale.setSaledate(date);
+                    saleRepository.save(sale);
+                }
+                userService.addscore(userid,score);
+                String uuid= UUID.randomUUID().toString();
                 Ord ord=new Ord(uuid,date,userid,money,stuffid,goodstr.toString(),numstr.toString());
                 ordService.addnew(ord);
 

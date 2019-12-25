@@ -3,6 +3,8 @@ package com.database.demo.Controller;
 import com.database.demo.Common.Response;
 import com.database.demo.Entity.Goodtype;
 import com.database.demo.Entity.User;
+import com.database.demo.Repository.GoodRepository;
+import com.database.demo.Repository.GoodtypeRepository;
 import com.database.demo.Service.GoodService;
 import com.database.demo.Service.GoodtypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,8 @@ public class GoodtypeController {
     GoodtypeService goodtypeService;
     @Autowired
     GoodService goodService;
-
+    @Autowired
+    GoodRepository goodRepository;
     @GetMapping("/all")
     public Response all(){
         try {
@@ -79,7 +82,15 @@ public class GoodtypeController {
             return genFailResult("添加失败");
         }
     }
-
+    @PostMapping("/allback")
+    public Response allback(){
+        try{
+            goodRepository.allback();
+            return genSuccessResult("成功");
+        }catch(Exception e){
+            return genFailResult("失败");
+        }
+    }
     @PostMapping("/deleteall")
     public Response deleteall(){
         try{

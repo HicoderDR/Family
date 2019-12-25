@@ -30,18 +30,36 @@ def run3(a,b):
         j.join()
     time.sleep(10)
 
+def run4(a,b,c):
+    print(a+b+c)
+    path="http://localhost:80/user/paydev?userid=yk001&stuffid=st001&score=0&date="+c+"&goodlist="+a+"&numlist="+b+"&money="+str(random.randint(1,88))
+    requests.post(path)
+    time.sleep(2)
+
+
 def mkguarantee():
     return random.randint(3,30)
 
 def mkdate():
-    a=(2019,12,1,0,0,0,0,0,0)              
-    b=(2019,12,20,23,59,59,0,0,0)    
+    a=(2019,12,14,0,0,0,0,0,0)              
+    b=(2019,12,25,23,59,59,0,0,0)    
     start=time.mktime(a)    #生成开始时间戳
     end=time.mktime(b)      #生成结束时间戳
     t=random.randint(start,end)
     date_touple=time.localtime(t)
     date=time.strftime("%Y-%m-%d",date_touple) 
     return date
+
+def mkdate2():
+    a=(2019,12,14,0,0,0,0,0,0)              
+    b=(2019,12,25,23,59,59,0,0,0)    
+    start=time.mktime(a)    #生成开始时间戳
+    end=time.mktime(b)      #生成结束时间戳
+    t=random.randint(start,end)
+    date_touple=time.localtime(t)
+    date=time.strftime("%Y-%m-%d %H:%M:%S",date_touple) 
+    return date
+
 def good():
     resp=requests.get("http://47.100.107.158/goodtype/all")
     data=json.loads(resp.text).get("data")
@@ -73,11 +91,39 @@ def guarantee():
         i.join()
     return 
 
-
-'''
+def buy():
+    resp=requests.get("http://47.100.107.158/goodtype/all")
+    data=json.loads(resp.text).get("data")
+    pool=[]
+    for j in range(0,1000):
+        cnt=random.randint(1,4)
+        date=mkdate2()
+        numlist=[]
+        goodlist=[]
+        for i in range(0,cnt):
+            n=random.randint(0,300)
+            type=data[n].get('type')
+            total= data[n].get('total')
+            if total>10:
+                rdnum=random.randint(1,6)
+            elif total>2:
+                rdnum=random.randint(1,total//2)
+            else:
+                continue
+            goodlist.append(str(type))
+            numlist.append(rdnum)
+        strg=",".join(str(j) for j in goodlist)
+        strn=",".join(str(j) for j in numlist)        
+        pool.append(threading.Thread(target=run4,args=(strg,strn,date)))
+    for i in pool:
+        i.start()
+        time.sleep(0.1)
+    for i in pool:
+        i.join()
+''' 
     
 '''
     
 #initdata()
-good()
+buy()
 
