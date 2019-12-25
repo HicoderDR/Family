@@ -51,8 +51,8 @@ def mkdate():
     return date
 
 def mkdate2():
-    a=(2019,12,14,0,0,0,0,0,0)              
-    b=(2019,12,25,23,59,59,0,0,0)    
+    a=(2019,12,24,0,0,0,0,0,0)              
+    b=(2019,12,31,23,59,59,0,0,0)    
     start=time.mktime(a)    #生成开始时间戳
     end=time.mktime(b)      #生成结束时间戳
     t=random.randint(start,end)

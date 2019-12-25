@@ -3,9 +3,10 @@ var bannerimg=["http://www.familymart.com.cn/static/common/img/ftc/xxtv-banner/y
 var dataMouth = [];//x轴
 var data1 = [];
 var user;
+var nowday=new Date();
 
 window.onload=function () {
-
+  xdata();//加载日期戳
   let that=this;
   let attr=document.getElementById("user_attr");
   let head=document.getElementById("head_portrait");
@@ -53,8 +54,7 @@ window.onload=function () {
       user=resp.data;
       if(user==null){
         document.getElementById("user_name").innerHTML="您尚未登录，请"
-        document.getElementById("log_in").style.display="block";
-        console.log(user);
+        document.getElementById("log_in").style.display="inline-block";
       }
       else if(user.userid){
         document.getElementById("shopping_cart").style.display="flex";
@@ -84,12 +84,6 @@ window.onload=function () {
       document.getElementById("user_name").style.color="#e74c3c";
     }
   });
-/*  document.getElementById("log_out").onclick=function () {
-    self.location.href="../html5/HomePage.html";
-  }
-  document.getElementById("log_in").onclick=function () {
-    self.location.href="../html5/HomePage.html";
-  }*/
   this.initsidebar();
   //初始化为营养便当
   this.newcategory("营养便当");
@@ -145,6 +139,18 @@ window.onresize = function () {
   this.sizechange(document.getElementsByClassName('card').length-document.getElementsByClassName('empty').length-1);
 }
 
+//载入统计日期
+function xdata() {
+
+  for(var i=0;i<14;i++){
+    var item=(nowday.getMonth()>9)?(nowday.getMonth()+1)+"-"+nowday.getDate():"0"+(nowday.getMonth()+1)+"-"+nowday.getDate();
+    dataMouth.push(item);
+    nowday=nowday.setDate(nowday.getDate()-1);
+    nowday=new Date(nowday);
+  }
+  dataMouth.reverse();
+}
+
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
@@ -189,87 +195,79 @@ function newcategory(category){
       for(i in data){
         var cardcell=document.createElement("div");
         cardcell.className="card";
-        (function(data){
-          //TODO:用户和员工的点击事件区分
-          cardcell.onclick=function () {
-            if(user.userid){
-              $("#item_detail").css("display","flex");
-              setTimeout("$('#item_detail').addClass('wrap_appear')",0);
-              $("#item_img").attr("src",data.uri);
-              document.getElementById("item_name").innerHTML=data.type;
-              document.getElementById("item_price").innerHTML="￥"+data.price;
-              document.getElementById("item_desc").innerHTML=data.description;
-              document.getElementById("surplus").innerHTML=document.getElementById("purchase_num").max=data.total;
-              $("#discount_info").empty();
-              if(data.buysend!=null){
-                let discount=data.buysend.split(',');
-                if(discount[1]=="1"){
-                  if(discount[0]=="a") $("#discount_info").html("尊享会员 每买"+discount[2]+"赠送"+discount[3]+"件");
-                  if(discount[0]=="b") $("#discount_info").html("尊享会员 单件加赠"+discount[2]+"积分");
-                  if(discount[0]=="c") $("#discount_info").html("尊享会员 每买"+discount[2]+"件减免"+discount[3]+"元");
-                }
-                if(discount[1]=="0"){
-                  if(discount[0]=="a") $("#discount_info").html("普通会员 每买"+discount[2]+"赠送"+discount[3]+"件");
-                  if(discount[0]=="b") $("#discount_info").html("普通会员 单件加赠"+discount[2]+"积分");
-                  if(discount[0]=="c") $("#discount_info").html("普通会员 每买"+discount[2]+"件减免"+discount[3]+"元");
-                }
-              }
-              document.getElementById("purchase_num").oninput=function () {
-                this.value=this.value.replace(/[^\d]/g,'');
-                if(this.value<0) this.value=0;
-                if(this.value=="") this.value=1;
-                if(this.value>data.total) this.value=data.total;
-              }
-              document.getElementById("purchase_btn").onclick=function () {
-                animation();//执行动画
-                addchild(data.uri,data.type,data.price,document.getElementById("purchase_num").value,data.buysend);//加入购物车
-              }
-            }
-            else if(user.stuffid){
-              $("#item_detail").css("display","flex");
-              setTimeout("$('#item_detail').addClass('wrap_appear')",0);
-              document.getElementById("detail_wrap").style.display="none";
-              document.getElementById("statistics_wrap").style.display="block";
-              document.getElementById("statistics_name").innerHTML=data.type;
-              //TODO:在这里添加统计表；
-              $.ajax({
-                type: "get",
-                url: "http://47.100.107.158:80/ord/statistic",
-                async:false,
-                data: {
-                  "goodname":data.type,
-                },
-                success: function (resp) {
-                  var list=resp.data;
-                  var nowday=new Date();
-                  dataMouth=[];
-                  for(var i=0;i<12;i++){
-                    var item=(nowday.getMonth()>9)?(nowday.getMonth()+1)+"-"+nowday.getDate():"0"+(nowday.getMonth()+1)+"-"+nowday.getDate();
-                    dataMouth.push(item);
-                    nowday=nowday.setDate(nowday.getDate()-1);
-                    nowday=new Date(nowday);
+        if(user){
+          (function(data){
+            cardcell.onclick=function () {
+              if(user.userid){
+                $("#item_detail").css("display","flex");
+                setTimeout("$('#item_detail').addClass('wrap_appear')",0);
+                $("#item_img").attr("src",data.uri);
+                document.getElementById("item_name").innerHTML=data.type;
+                document.getElementById("item_price").innerHTML="￥"+data.price;
+                document.getElementById("item_desc").innerHTML=data.description;
+                document.getElementById("surplus").innerHTML=document.getElementById("purchase_num").max=data.total;
+                $("#discount_info").empty();
+                if(data.buysend!=null){
+                  let discount=data.buysend.split(',');
+                  if(discount[1]=="1"){
+                    if(discount[0]=="a") $("#discount_info").html("尊享会员 每买"+discount[2]+"赠送"+discount[3]+"件");
+                    if(discount[0]=="b") $("#discount_info").html("尊享会员 单件加赠"+discount[2]+"积分");
+                    if(discount[0]=="c") $("#discount_info").html("尊享会员 每买"+discount[2]+"件减免"+discount[3]+"元");
                   }
-                  dataMouth.reverse();
-                  data1=[0,0,0,0,0,0,0,0,0,0,0,0];
-                  for(var j in list){
-                    var date=list[j].saledate.substring(5,10);
-                    console.log(date)
-                    for(var k in dataMouth){
-                      if(date==dataMouth[k]){
-                        data1[k]=list[j].num;
+                  if(discount[1]=="0"){
+                    if(discount[0]=="a") $("#discount_info").html("普通会员 每买"+discount[2]+"赠送"+discount[3]+"件");
+                    if(discount[0]=="b") $("#discount_info").html("普通会员 单件加赠"+discount[2]+"积分");
+                    if(discount[0]=="c") $("#discount_info").html("普通会员 每买"+discount[2]+"件减免"+discount[3]+"元");
+                  }
+                }
+                var purchase_num=document.getElementById("purchase_num");
+                purchase_num.oninput=function () {
+                  this.value=this.value.replace(/[^\d]/g,'');
+                  if(this.value<0) this.value=0;
+                  if(this.value=="") this.value=1;
+                  if(this.value>data.total) this.value=data.total;
+                }
+                document.getElementById("purchase_btn").onclick=function () {
+                  if(purchase_num.value!=0){
+                    animation();//执行动画
+                    addchild(data.uri,data.type,data.price,document.getElementById("purchase_num").value,data.buysend);//加入购物车
+                  }
+                }
+              }
+              else if(user.stuffid){
+                $("#item_detail").css("display","flex");
+                setTimeout("$('#item_detail').addClass('wrap_appear')",0);
+                document.getElementById("detail_wrap").style.display="none";
+                document.getElementById("statistics_wrap").style.display="block";
+                document.getElementById("statistics_name").innerHTML=data.type;
+                $.ajax({
+                  type: "get",
+                  url: "http://47.100.107.158:80/ord/statistic",
+                  async:false,
+                  data: {
+                    "goodname":data.type,
+                  },
+                  success: function (resp) {
+                    var list=resp.data;
+                    data1=[0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+                    for(var j in list){
+                      var date=list[j].saledate.substring(5,10);
+                      for(var k in dataMouth){
+                        if(date==dataMouth[k]){
+                          data1[k]=list[j].num;
+                        }
                       }
                     }
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("获取数据失败");
                   }
-                  console.log(data1)
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                  console.log("获取数据失败");
-                }
-              });
-              chart();
+                });
+                chart();
+              }
             }
-          }
-        })(data[i]);
+          })(data[i]);
+        }
         var imgwrap=document.createElement("div");
         var imgcell=document.createElement("img");
         imgwrap.appendChild(imgcell);
@@ -425,103 +423,97 @@ function href_HomePage() {
   self.location.href="/";
 }
 function chart(){
-  var chart_c1 = echarts.init(document.getElementById('chart'));//指定的id要有高度和宽度
-  var dataMoney = [0,5,10,15,20,25,30,35,40,45,50,55];//y轴
-
+  var myChart = echarts.init(document.getElementById('chart'));
+// 使用刚指定的配置项和数据显示图表。
   //显示数据，可修改
-  option = {
-      title: {
-          // text: '费用统计',
-          left: 'left',
-          top: 'top',
-      },
-      tooltip : {
-          trigger: 'axis',
-          axisPointer : {
-              type : 'shadow'
-          },
-          formatter:function (params){
+  var  option = {
+    title: {
+      text: '近12天销售量',
+      left: 'left',
+      top: 'top',
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    grid: {
+      left: '1%',
+      right: '15%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: [
+      {
+        type: 'category',
+        axisLine:{
+          symbol:['none','none'],
+          lineStyle:{
+            color:'#9b9b9b',
+          }
+        },
+        name: '日期',
+        data: dataMouth,
+        splitLine:{
+          show:false,
+        },
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value',
+        axisLine:{
+          symbol:['none','none'],
+          lineStyle:{
+            color:'#9b9b9b',
+          }
+        },
+        name: '销售量',
+        min: 0,
+        max: 30,
+        interval: 5,
+        axisLabel: {
+          formatter: '{value} '
+        },
+        splitLine:{
+          show:false,
+        },
+      }
+    ],
+    series: [
 
-              var relVal = params[0].name+"<br/>";
-              relVal += params[0].seriesName+ ' : ' + params[0].value+"例子"+"<br/>";
-              relVal +=params[1].seriesName+ ' : ' +params[1].value+"<br/>";
-              // relVal += params[2].seriesName+ ' : ' + params[2].value+"%";
-              return relVal;
+      {
+        name:'用户统计',
+        type:'bar',
+        /*设置柱状图颜色*/
+        itemStyle: {
+          normal: {
+            color: function(params) {
+              // build a color map as your need.
+              var colorList = [
+                '#d9e8fd'
+              ];
+              return colorList[params.dataIndex]
+            },
+            /*信息显示方式*/
+            label: {
+              show: false,
+              position: 'top',
+              formatter: '{b}\n{c}'
+            }
           }
+        },
+        data:data1
       },
-      legend: {
-          // orient: 'vertical',
-          // x: 'center',
-          // y: 'top',
-          selectedMode:false, 
-          itemWidth:15,  
-          itemHeight:15, 
-          icon: 'circle',
-          data:['销售量','销售量']
-      },
-      grid: {
-          left: '1%',
-          right: '15%',
-          bottom: '3%',
-          containLabel: true
-      },
-      xAxis : [
-          {
-              type : 'category',
-              axisLine:{
-                  symbol:['none','arrow'],
-                  lineStyle:{
-                      color:'#9b9b9b',
-                  }    
-              },
-              name: '日期',
-              data : dataMouth,
-              splitLine:{
-                  show:false,
-              },
+      {
+        name:'折线',
+        type:'line',
+        itemStyle : {  /*设置折线颜色*/
+          normal : {
+            color:'#78aef9'
           }
-      ],
-      yAxis : [
-          {
-              type : 'value',
-              axisLine:{
-                  symbol:['none','arrow'],
-                  lineStyle:{
-                      color:'#9b9b9b',
-                  }  
-              },
-              name: '金额（元）',
-              data : dataMoney,//可省略，只要type : 'value',会自适应数据设置Y轴
-              splitLine:{
-                  show:false,
-              },
-          }
-      ],
-      series : [
-          {
-              name:'销售量',
-              type:'bar',
-              stack:'sum',  //柱状图叠在一起的关键设置
-              // barWidth : 20,
-              itemStyle:{
-                  normal:{
-                      label: {
-                          show: false,//是否展示
-                      },
-                      color:'#2a6afd',
-                  }
-              },
-              data:data1
-          },
-
-          ]
-      };
-  chart_c1.setOption(option);
+        },
+        data:data1
+      }
+    ]
+  };
+  myChart.setOption(option);
 }
-
-function convertDateFromString(dateString) {
-  if (dateString) { 
-  var date = new Date(dateString.replace(/-/,"/")) 
-  return date;
-  }
-  }

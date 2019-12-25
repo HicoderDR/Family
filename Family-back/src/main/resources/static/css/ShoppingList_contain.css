@@ -325,6 +325,12 @@ input::-webkit-inner-spin-button {
 .statistics_wrap > .statistics_name{
   margin: 25px 0 0 30px;
 }
+#chart{
+  width:776px;
+  height: 320px;
+  margin: 20px 0 20px 60px;
+  position: relative;
+}
 .shopping_cart{
   position: fixed;
   z-index: 16;
@@ -481,6 +487,8 @@ input::-webkit-inner-spin-button {
   align-items: center;
   position: relative;
 }
+.log_in,
+.log_out,
 .pay_btn > button{
   border-radius: 5px;
   width: 100px;
@@ -494,6 +502,12 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
   border: none;
 }
+.log_out{
+  width: 80px;
+}
+.log_in{
+  width: 60px;
+}
 .pay_btn > .point_first{
   background-color: #2ecc71;
 }
@@ -504,14 +518,27 @@ input::-webkit-inner-spin-button {
   box-shadow: 0 0 0 0.2rem #27ae60;
   outline: none;
 }
+.log_out,
 .pay_btn > .money{
   background-color: #e74c3c;
 }
+.log_out:hover,
 .pay_btn > .money:hover{
   background-color: #c0392b;
 }
+.log_out:focus,
 .pay_btn > .money:focus{
   box-shadow: 0 0 0 0.2rem #c0392b;
+  outline: none;
+}
+.log_in{
+  background-color: #3498db;
+}
+.log_in:hover{
+  background-color: #2980b9;
+}
+.log_in:focus{
+  box-shadow: 0 0 0 0.2rem #2980b9;
   outline: none;
 }
 .point_tip{

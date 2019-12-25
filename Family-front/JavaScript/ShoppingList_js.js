@@ -141,9 +141,8 @@ window.onresize = function () {
 
 //载入统计日期
 function xdata() {
-  nowday=nowday.setDate(nowday.getDate()-1);
-  nowday=new Date(nowday);
-  for(var i=0;i<12;i++){
+
+  for(var i=0;i<14;i++){
     var item=(nowday.getMonth()>9)?(nowday.getMonth()+1)+"-"+nowday.getDate():"0"+(nowday.getMonth()+1)+"-"+nowday.getDate();
     dataMouth.push(item);
     nowday=nowday.setDate(nowday.getDate()-1);
