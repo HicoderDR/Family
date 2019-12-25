@@ -249,7 +249,7 @@ function newcategory(category){
                   },
                   success: function (resp) {
                     var list=resp.data;
-                    data1=[0,0,0,0,0,0,0,0,0,0,0,0];
+                    data1=[0,0,0,0,0,0,0,0,0,0,0,0,0,0];
                     for(var j in list){
                       var date=list[j].saledate.substring(5,10);
                       for(var k in dataMouth){
@@ -428,7 +428,7 @@ function chart(){
   //显示数据，可修改
   var  option = {
     title: {
-      text: '近12天销售量',
+      text: '近两周的销售量',
       left: 'left',
       top: 'top',
     },
@@ -468,8 +468,8 @@ function chart(){
         },
         name: '销售量',
         min: 0,
-        max: 100,
-        interval: 10,
+        max: 10,
+        interval: 1,
         axisLabel: {
           formatter: '{value} '
         },

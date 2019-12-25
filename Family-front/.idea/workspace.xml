@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2fe449d0-523d-456c-b9be-81a4da9ac1bb" name="默认更改列表" comment="">
       <change beforePath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript/ShoppingList_js.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/ShoppingList_contain.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/ShoppingList_contain.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html5/ShoppingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/html5/ShoppingList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html5/js/chart3.js" beforeDir="false" afterPath="$PROJECT_DIR$/html5/js/chart3.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,6 +75,9 @@
       <workItem from="1577174302531" duration="1313000" />
       <workItem from="1577178303627" duration="396000" />
       <workItem from="1577182404521" duration="7735000" />
+      <workItem from="1577190337205" duration="1265000" />
+      <workItem from="1577266095370" duration="890000" />
+      <workItem from="1577267513121" duration="736000" />
     </task>
     <servers />
   </component>
